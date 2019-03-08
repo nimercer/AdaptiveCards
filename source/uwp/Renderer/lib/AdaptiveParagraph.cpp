@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "AdaptiveParagraph.h"
 #include "Util.h"
+#include "Vector.h"
 #include <windows.foundation.collections.h>
 
 using namespace Microsoft::WRL;
@@ -12,6 +13,8 @@ using namespace ABI::Windows::UI::Xaml::Controls;
 
 namespace AdaptiveNamespace
 {
+    AdaptiveParagraph::AdaptiveParagraph() { m_inlines = Microsoft::WRL::Make<Vector<IAdaptiveInline*>>(); }
+
     HRESULT AdaptiveParagraph::RuntimeClassInitialize() noexcept try
     {
         RuntimeClassInitialize(std::make_shared<Paragraph>());
@@ -21,17 +24,27 @@ namespace AdaptiveNamespace
 
     HRESULT AdaptiveParagraph::RuntimeClassInitialize(const std::shared_ptr<AdaptiveSharedNamespace::Paragraph>& sharedParagraph)
     {
+        if (sharedParagraph == nullptr)
+        {
+            return E_INVALIDARG;
+        }
+
+        GenerateInlinesProjection(sharedParagraph->GetInlines(), m_inlines.Get());
+
         return S_OK;
     }
 
     HRESULT AdaptiveParagraph::get_Inlines(ABI::Windows::Foundation::Collections::IVector<ABI::AdaptiveNamespace::IAdaptiveInline*>** inlines)
     {
-        return E_NOTIMPL;
+        return m_inlines.CopyTo(inlines);
     }
 
     HRESULT AdaptiveParagraph::GetSharedModel(std::shared_ptr<AdaptiveSharedNamespace::Paragraph>& sharedModel) try
     {
         std::shared_ptr<AdaptiveSharedNamespace::Paragraph> paragraph = std::make_shared<AdaptiveSharedNamespace::Paragraph>();
+
+        RETURN_IF_FAILED(GenerateSharedInlines(m_inlines.Get(), paragraph->GetInlines()));
+
         sharedModel = paragraph;
         return S_OK;
     }

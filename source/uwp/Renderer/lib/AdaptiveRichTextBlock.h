@@ -17,6 +17,8 @@ namespace AdaptiveNamespace
         AdaptiveRuntime(AdaptiveRichTextBlock);
 
     public:
+        AdaptiveRichTextBlock();
+
         HRESULT RuntimeClassInitialize() noexcept;
         HRESULT RuntimeClassInitialize(const std::shared_ptr<AdaptiveSharedNamespace::RichTextBlock>& sharedRichTextBlock);
 
@@ -97,6 +99,7 @@ namespace AdaptiveNamespace
         boolean m_wrap;
         UINT32 m_maxLines;
         ABI::AdaptiveNamespace::HAlignment m_horizontalAlignment;
+        Microsoft::WRL::ComPtr<ABI::Windows::Foundation::Collections::IVector<ABI::AdaptiveNamespace::AdaptiveParagraph*>> m_paragraphs;
     };
 
     ActivatableClass(AdaptiveRichTextBlock);

@@ -173,6 +173,7 @@
     <ClInclude Include="lib\AdaptiveShowCardActionRenderer.h" />
     <ClInclude Include="lib\AdaptiveSubmitActionRenderer.h" />
     <ClInclude Include="lib\AdaptiveTextBlockRenderer.h" />
+    <ClInclude Include="lib\AdaptiveTextElement.h" />
     <ClInclude Include="lib\AdaptiveTextInputRenderer.h" />
     <ClInclude Include="lib\AdaptiveTextRun.h" />
     <ClInclude Include="lib\AdaptiveTimeInputRenderer.h" />
@@ -246,6 +247,7 @@
     <ClCompile Include="lib\AdaptiveRemoteResourceInformation.cpp" />
     <ClCompile Include="lib\AdaptiveRichTextBlock.cpp" />
     <ClCompile Include="lib\AdaptiveRichTextBlockRenderer.cpp" />
+    <ClCompile Include="lib\AdaptiveTextElement.cpp" />
     <ClCompile Include="lib\AdaptiveTextRun.cpp" />
     <ClCompile Include="lib\AdaptiveToggleVisibilityActionRenderer.cpp" />
     <ClCompile Include="lib\AdaptiveToggleVisibilityTarget.cpp" />

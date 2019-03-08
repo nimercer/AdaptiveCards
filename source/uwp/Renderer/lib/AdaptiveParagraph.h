@@ -14,17 +14,21 @@ namespace AdaptiveNamespace
         AdaptiveRuntime(AdaptiveParagraph);
 
     public:
+        AdaptiveParagraph();
+
         HRESULT RuntimeClassInitialize() noexcept;
         HRESULT RuntimeClassInitialize(const std::shared_ptr<AdaptiveSharedNamespace::Paragraph>& sharedParagraph);
 
         // IAdaptiveParagraph
-        IFACEMETHODIMP get_Inlines(
-            _COM_Outptr_ ABI::Windows::Foundation::Collections::IVector<ABI::AdaptiveNamespace::IAdaptiveInline*>** inlines);
+        IFACEMETHODIMP get_Inlines(_COM_Outptr_ ABI::Windows::Foundation::Collections::IVector<ABI::AdaptiveNamespace::IAdaptiveInline*>** inlines);
 
         HRESULT GetSharedModel(std::shared_ptr<AdaptiveSharedNamespace::Paragraph>& sharedModel);
 
         // ITypePeek method
         void* PeekAt(REFIID riid) override { return PeekHelper(riid, this); }
+
+    private:
+        Microsoft::WRL::ComPtr<ABI::Windows::Foundation::Collections::IVector<ABI::AdaptiveNamespace::IAdaptiveInline*>> m_inlines;
     };
 
     ActivatableClass(AdaptiveParagraph);

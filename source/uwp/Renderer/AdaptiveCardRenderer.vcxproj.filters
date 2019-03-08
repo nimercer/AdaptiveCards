@@ -107,6 +107,7 @@
     <ClCompile Include="lib\AdaptiveRichTextBlockRenderer.cpp" />
     <ClCompile Include="lib\AdaptiveParagraph.cpp" />
     <ClCompile Include="lib\AdaptiveTextRun.cpp" />
+    <ClCompile Include="lib\AdaptiveTextElement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\AdaptiveCard.h" />
@@ -221,6 +222,7 @@
     <ClInclude Include="lib\AdaptiveRichTextBlockRenderer.h" />
     <ClInclude Include="lib\AdaptiveParagraph.h" />
     <ClInclude Include="lib\AdaptiveTextRun.h" />
+    <ClInclude Include="lib\AdaptiveTextElement.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="idl\AdaptiveCards.Rendering.Uwp.idl" />

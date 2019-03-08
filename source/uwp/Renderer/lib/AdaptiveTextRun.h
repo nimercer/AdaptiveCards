@@ -3,6 +3,7 @@
 #include "AdaptiveCards.Rendering.Uwp.h"
 #include "Enums.h"
 #include "TextRun.h"
+#include "AdaptiveTextElement.h"
 
 namespace AdaptiveNamespace
 {
@@ -10,7 +11,8 @@ namespace AdaptiveNamespace
         : public Microsoft::WRL::RuntimeClass<Microsoft::WRL::RuntimeClassFlags<Microsoft::WRL::RuntimeClassType::WinRtClassicComMix>,
                                               ABI::AdaptiveNamespace::IAdaptiveTextElement,
                                               ABI::AdaptiveNamespace::IAdaptiveInline,
-                                              Microsoft::WRL::CloakedIid<ITypePeek>>
+                                              Microsoft::WRL::CloakedIid<ITypePeek>,
+                                              Microsoft::WRL::CloakedIid<AdaptiveNamespace::AdaptiveTextElement>>
     {
         AdaptiveRuntime(AdaptiveTextRun);
 
@@ -19,26 +21,50 @@ namespace AdaptiveNamespace
         HRESULT RuntimeClassInitialize(const std::shared_ptr<AdaptiveSharedNamespace::TextRun>& sharedTextRun);
 
         // IAdaptiveTextRun
-        IFACEMETHODIMP get_Text(_Outptr_ HSTRING* text) { return E_NOTIMPL; }
-        IFACEMETHODIMP put_Text(_In_ HSTRING text) { return E_NOTIMPL; }
+        IFACEMETHODIMP get_Text(_Outptr_ HSTRING* text) { return AdaptiveTextElement::get_Text(text); }
+        IFACEMETHODIMP put_Text(_In_ HSTRING text) { return AdaptiveTextElement::put_Text(text); }
 
-        IFACEMETHODIMP get_Size(_Out_ ABI::AdaptiveNamespace::TextSize* textSize) { return E_NOTIMPL; }
-        IFACEMETHODIMP put_Size(ABI::AdaptiveNamespace::TextSize textSize) { return E_NOTIMPL; }
+        IFACEMETHODIMP get_Size(_Out_ ABI::AdaptiveNamespace::TextSize* textSize)
+        {
+            return AdaptiveTextElement::get_Size(textSize);
+        }
+        IFACEMETHODIMP put_Size(ABI::AdaptiveNamespace::TextSize textSize)
+        {
+            return AdaptiveTextElement::put_Size(textSize);
+        }
 
-        IFACEMETHODIMP get_Weight(_Out_ ABI::AdaptiveNamespace::TextWeight* textWeight) { return E_NOTIMPL; }
-        IFACEMETHODIMP put_Weight(ABI::AdaptiveNamespace::TextWeight textWeight) { return E_NOTIMPL; }
+        IFACEMETHODIMP get_Weight(_Out_ ABI::AdaptiveNamespace::TextWeight* textWeight)
+        {
+            return AdaptiveTextElement::get_Weight(textWeight);
+        }
+        IFACEMETHODIMP put_Weight(ABI::AdaptiveNamespace::TextWeight textWeight)
+        {
+            return AdaptiveTextElement::put_Weight(textWeight);
+        }
 
-        IFACEMETHODIMP get_Color(_Out_ ABI::AdaptiveNamespace::ForegroundColor* textColor) { return E_NOTIMPL; }
-        IFACEMETHODIMP put_Color(ABI::AdaptiveNamespace::ForegroundColor textColor) { return E_NOTIMPL; }
+        IFACEMETHODIMP get_Color(_Out_ ABI::AdaptiveNamespace::ForegroundColor* textColor)
+        {
+            return AdaptiveTextElement::get_Color(textColor);
+        }
+        IFACEMETHODIMP put_Color(ABI::AdaptiveNamespace::ForegroundColor textColor)
+        {
+            return AdaptiveTextElement::put_Color(textColor);
+        }
 
-        IFACEMETHODIMP get_IsSubtle(_Out_ boolean* isSubtle) { return E_NOTIMPL; }
-        IFACEMETHODIMP put_IsSubtle(boolean isSubtle) { return E_NOTIMPL; }
+        IFACEMETHODIMP get_IsSubtle(_Out_ boolean* isSubtle) { return AdaptiveTextElement::get_IsSubtle(isSubtle); }
+        IFACEMETHODIMP put_IsSubtle(boolean isSubtle) { return AdaptiveTextElement::put_IsSubtle(isSubtle); }
 
-        IFACEMETHODIMP get_Language(_Outptr_ HSTRING* language) { return E_NOTIMPL; }
-        IFACEMETHODIMP put_Language(_In_ HSTRING language) { return E_NOTIMPL; }
+        IFACEMETHODIMP get_Language(_Outptr_ HSTRING* language) { return AdaptiveTextElement::get_Language(language); }
+        IFACEMETHODIMP put_Language(_In_ HSTRING language) { return AdaptiveTextElement::put_Language(language); }
 
-        IFACEMETHODIMP get_FontStyle(_Out_ ABI::AdaptiveNamespace::FontStyle* style) { return E_NOTIMPL; }
-        IFACEMETHODIMP put_FontStyle(ABI::AdaptiveNamespace::FontStyle style) { return E_NOTIMPL; }
+        IFACEMETHODIMP get_FontStyle(_Out_ ABI::AdaptiveNamespace::FontStyle* style)
+        {
+            return AdaptiveTextElement::get_FontStyle(style);
+        }
+        IFACEMETHODIMP put_FontStyle(ABI::AdaptiveNamespace::FontStyle style)
+        {
+            return AdaptiveTextElement::put_FontStyle(style);
+        }
 
         HRESULT GetSharedModel(std::shared_ptr<AdaptiveSharedNamespace::TextRun>& sharedModel);
 

@@ -2,6 +2,7 @@
 #include "AdaptiveRichTextBlock.h"
 #include "Util.h"
 #include "DateTimeParser.h"
+#include "Vector.h"
 #include <windows.foundation.collections.h>
 
 using namespace Microsoft::WRL;
@@ -13,9 +14,15 @@ using namespace ABI::Windows::UI::Xaml::Controls;
 
 namespace AdaptiveNamespace
 {
+    AdaptiveRichTextBlock::AdaptiveRichTextBlock()
+    {
+        m_paragraphs = Microsoft::WRL::Make<Vector<AdaptiveParagraph*>>();
+    }
+
     HRESULT AdaptiveRichTextBlock::RuntimeClassInitialize() noexcept try
     {
-        std::shared_ptr<AdaptiveSharedNamespace::RichTextBlock> richTextBlock = std::make_shared<AdaptiveSharedNamespace::RichTextBlock>();
+        std::shared_ptr<AdaptiveSharedNamespace::RichTextBlock> richTextBlock =
+            std::make_shared<AdaptiveSharedNamespace::RichTextBlock>();
         return RuntimeClassInitialize(richTextBlock);
     }
     CATCH_RETURN;
@@ -30,6 +37,8 @@ namespace AdaptiveNamespace
         m_wrap = sharedRichTextBlock->GetWrap();
         m_maxLines = sharedRichTextBlock->GetMaxLines();
         m_horizontalAlignment = static_cast<ABI::AdaptiveNamespace::HAlignment>(sharedRichTextBlock->GetHorizontalAlignment());
+
+        GenerateParagraphsProjection(sharedRichTextBlock->GetParagraphs(), m_paragraphs.Get());
 
         InitializeBaseElement(std::static_pointer_cast<BaseCardElement>(sharedRichTextBlock));
         return S_OK;
@@ -75,7 +84,7 @@ namespace AdaptiveNamespace
     HRESULT AdaptiveRichTextBlock::get_Paragraphs(
         ABI::Windows::Foundation::Collections::IVector<ABI::AdaptiveNamespace::AdaptiveParagraph*>** paragraphs)
     {
-        return E_NOTIMPL;
+        return m_paragraphs.CopyTo(paragraphs);
     }
 
     HRESULT AdaptiveRichTextBlock::get_ElementType(_Out_ ElementType* elementType)
@@ -86,13 +95,16 @@ namespace AdaptiveNamespace
 
     HRESULT AdaptiveRichTextBlock::GetSharedModel(std::shared_ptr<AdaptiveSharedNamespace::BaseCardElement>& sharedRichTextBlock) try
     {
-        std::shared_ptr<AdaptiveSharedNamespace::RichTextBlock> richTextBlock = std::make_shared<AdaptiveSharedNamespace::RichTextBlock>();
+        std::shared_ptr<AdaptiveSharedNamespace::RichTextBlock> richTextBlock =
+            std::make_shared<AdaptiveSharedNamespace::RichTextBlock>();
 
         RETURN_IF_FAILED(SetSharedElementProperties(std::static_pointer_cast<AdaptiveSharedNamespace::BaseCardElement>(richTextBlock)));
 
         richTextBlock->SetWrap(m_wrap);
         richTextBlock->SetMaxLines(m_maxLines);
         richTextBlock->SetHorizontalAlignment(static_cast<AdaptiveSharedNamespace::HorizontalAlignment>(m_horizontalAlignment));
+
+        RETURN_IF_FAILED(GenerateSharedParagraphs(m_paragraphs.Get(), richTextBlock->GetParagraphs()));
 
         sharedRichTextBlock = richTextBlock;
         return S_OK;
