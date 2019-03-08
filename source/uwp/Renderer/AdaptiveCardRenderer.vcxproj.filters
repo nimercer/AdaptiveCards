@@ -103,6 +103,10 @@
     <ClCompile Include="lib\AdaptiveShowCardActionRenderer.cpp" />
     <ClCompile Include="lib\AdaptiveSubmitActionRenderer.cpp" />
     <ClCompile Include="lib\AdaptiveToggleVisibilityActionRenderer.cpp" />
+    <ClCompile Include="lib\AdaptiveRichTextBlock.cpp" />
+    <ClCompile Include="lib\AdaptiveRichTextBlockRenderer.cpp" />
+    <ClCompile Include="lib\AdaptiveParagraph.cpp" />
+    <ClCompile Include="lib\AdaptiveTextRun.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\AdaptiveCard.h" />
@@ -213,6 +217,10 @@
     <ClInclude Include="lib\AdaptiveShowCardActionRenderer.h" />
     <ClInclude Include="lib\AdaptiveSubmitActionRenderer.h" />
     <ClInclude Include="lib\AdaptiveToggleVisibilityActionRenderer.h" />
+    <ClInclude Include="lib\AdaptiveRichTextBlock.h" />
+    <ClInclude Include="lib\AdaptiveRichTextBlockRenderer.h" />
+    <ClInclude Include="lib\AdaptiveParagraph.h" />
+    <ClInclude Include="lib\AdaptiveTextRun.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="idl\AdaptiveCards.Rendering.Uwp.idl" />

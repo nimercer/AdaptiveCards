@@ -1815,6 +1815,16 @@ namespace AdaptiveNamespace
         return S_OK;
     }
 
+    HRESULT XamlBuilder::BuildRichTextBlock(ABI::AdaptiveNamespace::IAdaptiveCardElement* adaptiveCardElement,
+                                            ABI::AdaptiveNamespace::IAdaptiveRenderContext* renderContext,
+                                            ABI::AdaptiveNamespace::IAdaptiveRenderArgs* renderArgs,
+                                            ABI::Windows::UI::Xaml::IUIElement** textBlockControl)
+    {
+        ComPtr<ITextBlock> xamlTextBlock =
+            XamlHelpers::CreateXamlClass<ITextBlock>(HStringReference(RuntimeClass_Windows_UI_Xaml_Controls_TextBlock));
+        return xamlTextBlock.CopyTo(textBlockControl);
+    }
+
     void XamlBuilder::BuildTextBlock(_In_ IAdaptiveCardElement* adaptiveCardElement,
                                      _In_ IAdaptiveRenderContext* renderContext,
                                      _In_ IAdaptiveRenderArgs* renderArgs,
@@ -1831,18 +1841,21 @@ namespace AdaptiveNamespace
         ComPtr<ITextBlock2> xamlTextBlock2;
         THROW_IF_FAILED(xamlTextBlock.As(&xamlTextBlock2));
 
+        ComPtr<IAdaptiveTextElement> adaptiveTextElement;
+        adaptiveTextBlock.As(&adaptiveTextElement);
+
         HString text;
-        THROW_IF_FAILED(adaptiveTextBlock->get_Text(text.GetAddressOf()));
+        THROW_IF_FAILED(adaptiveTextElement->get_Text(text.GetAddressOf()));
         HString language;
-        THROW_IF_FAILED(adaptiveTextBlock->get_Language(language.GetAddressOf()));
+        THROW_IF_FAILED(adaptiveTextElement->get_Language(language.GetAddressOf()));
         ABI::AdaptiveNamespace::FontStyle fontStyle;
-        THROW_IF_FAILED(adaptiveTextBlock->get_FontStyle(&fontStyle));
+        THROW_IF_FAILED(adaptiveTextElement->get_FontStyle(&fontStyle));
         THROW_IF_FAILED(SetTextOnXamlTextBlock(renderContext, text.Get(), fontStyle, language.Get(), xamlTextBlock.Get()));
 
         ABI::AdaptiveNamespace::ForegroundColor textColor;
-        THROW_IF_FAILED(adaptiveTextBlock->get_Color(&textColor));
+        THROW_IF_FAILED(adaptiveTextElement->get_Color(&textColor));
         boolean isSubtle = false;
-        THROW_IF_FAILED(adaptiveTextBlock->get_IsSubtle(&isSubtle));
+        THROW_IF_FAILED(adaptiveTextElement->get_IsSubtle(&isSubtle));
 
         // The subtle boolean is rendered by setting the opacity on the text block, so retrieve
         // that value from the resource dictionary and set the Opacity
@@ -1890,10 +1903,10 @@ namespace AdaptiveNamespace
             break;
         }
         ABI::AdaptiveNamespace::TextSize textblockSize;
-        THROW_IF_FAILED(adaptiveTextBlock->get_Size(&textblockSize));
+        THROW_IF_FAILED(adaptiveTextElement->get_Size(&textblockSize));
 
         ABI::AdaptiveNamespace::TextWeight textWeight;
-        THROW_IF_FAILED(adaptiveTextBlock->get_Weight(&textWeight));
+        THROW_IF_FAILED(adaptiveTextElement->get_Weight(&textWeight));
 
         boolean shouldWrap = false;
         THROW_IF_FAILED(adaptiveTextBlock->get_Wrap(&shouldWrap));

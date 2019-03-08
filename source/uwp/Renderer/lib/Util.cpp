@@ -19,6 +19,7 @@
 #include "AdaptiveMediaSource.h"
 #include "AdaptiveNumberInput.h"
 #include "AdaptiveOpenUrlAction.h"
+#include "AdaptiveRichTextBlock.h"
 #include "AdaptiveSeparator.h"
 #include "AdaptiveShowCardAction.h"
 #include "AdaptiveSubmitAction.h"
@@ -164,6 +165,11 @@ HRESULT GenerateSharedElements(_In_ ABI::Windows::Foundation::Collections::IVect
                 GetSharedModel<AdaptiveSharedNamespace::BaseCardElement, ABI::AdaptiveNamespace::IAdaptiveCardElement, AdaptiveNamespace::AdaptiveMedia>(
                     item);
             break;
+        case ABI::AdaptiveNamespace::ElementType::RichTextBlock:
+            baseCardElement =
+                GetSharedModel<AdaptiveSharedNamespace::BaseCardElement, ABI::AdaptiveNamespace::IAdaptiveCardElement, AdaptiveNamespace::AdaptiveRichTextBlock>(
+                    item);
+            break;
         case ABI::AdaptiveNamespace::ElementType::TextBlock:
             baseCardElement =
                 GetSharedModel<AdaptiveSharedNamespace::BaseCardElement, ABI::AdaptiveNamespace::IAdaptiveCardElement, AdaptiveNamespace::AdaptiveTextBlock>(
@@ -184,6 +190,7 @@ HRESULT GenerateSharedElements(_In_ ABI::Windows::Foundation::Collections::IVect
                 GetSharedModel<AdaptiveSharedNamespace::BaseCardElement, ABI::AdaptiveNamespace::IAdaptiveCardElement, AdaptiveNamespace::AdaptiveToggleInput>(
                     item);
             break;
+
         case ABI::AdaptiveNamespace::ElementType::Unsupported:
             baseCardElement =
                 GetSharedModel<AdaptiveSharedNamespace::BaseCardElement, ABI::AdaptiveNamespace::IAdaptiveCardElement, AdaptiveNamespace::AdaptiveUnsupportedElement>(
@@ -471,6 +478,10 @@ HRESULT GenerateContainedElementsProjection(
         case CardElementType::Unknown:
             RETURN_IF_FAILED(MakeAndInitialize<::AdaptiveNamespace::AdaptiveUnsupportedElement>(
                 &projectedContainedElement, std::AdaptivePointerCast<AdaptiveSharedNamespace::UnknownElement>(containedElement)));
+            break;
+        case CardElementType::RichTextBlock:
+            RETURN_IF_FAILED(MakeAndInitialize<::AdaptiveNamespace::AdaptiveRichTextBlock>(
+                &projectedContainedElement, std::AdaptivePointerCast<AdaptiveSharedNamespace::RichTextBlock>(containedElement)));
             break;
         }
 

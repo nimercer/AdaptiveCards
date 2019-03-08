@@ -257,6 +257,8 @@ namespace AdaptiveNamespace
                                            Make<AdaptiveNamespace::AdaptiveToggleInputRenderer>().Get()));
         RETURN_IF_FAILED(
             registration->Set(HStringReference(L"Media").Get(), Make<AdaptiveNamespace::AdaptiveMediaRenderer>().Get()));
+        RETURN_IF_FAILED(registration->Set(HStringReference(L"RichTextBlock").Get(),
+                                           Make<AdaptiveNamespace::AdaptiveRichTextBlockRenderer>().Get()));
         RETURN_IF_FAILED(registration->Set(HStringReference(L"TextBlock").Get(),
                                            Make<AdaptiveNamespace::AdaptiveTextBlockRenderer>().Get()));
 

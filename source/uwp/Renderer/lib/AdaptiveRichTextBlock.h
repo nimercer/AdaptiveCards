@@ -2,43 +2,27 @@
 
 #include "AdaptiveCards.Rendering.Uwp.h"
 #include "Enums.h"
-#include "TextBlock.h"
+#include "RichTextBlock.h"
 #include "AdaptiveCardElement.h"
 
 namespace AdaptiveNamespace
 {
-    class DECLSPEC_UUID("0c87566c-a58c-4332-8b3b-79c9714074f6") AdaptiveTextBlock
+    class DECLSPEC_UUID("0c87566c-a58c-4332-8b3b-79c9714074f6") AdaptiveRichTextBlock
         : public Microsoft::WRL::RuntimeClass<Microsoft::WRL::RuntimeClassFlags<Microsoft::WRL::RuntimeClassType::WinRtClassicComMix>,
-                                              ABI::AdaptiveNamespace::IAdaptiveTextBlock,
-                                              ABI::AdaptiveNamespace::IAdaptiveTextElement,
+                                              ABI::AdaptiveNamespace::IAdaptiveRichTextBlock,
                                               ABI::AdaptiveNamespace::IAdaptiveCardElement,
                                               Microsoft::WRL::CloakedIid<ITypePeek>,
                                               Microsoft::WRL::CloakedIid<AdaptiveNamespace::AdaptiveCardElementBase>>
     {
-        AdaptiveRuntime(AdaptiveTextBlock);
+        AdaptiveRuntime(AdaptiveRichTextBlock);
 
     public:
         HRESULT RuntimeClassInitialize() noexcept;
-        HRESULT RuntimeClassInitialize(const std::shared_ptr<AdaptiveSharedNamespace::TextBlock>& sharedTextBlock);
+        HRESULT RuntimeClassInitialize(const std::shared_ptr<AdaptiveSharedNamespace::RichTextBlock>& sharedRichTextBlock);
 
-        // IAdaptiveTextBlock
-        IFACEMETHODIMP get_Text(_Outptr_ HSTRING* text);
-        IFACEMETHODIMP put_Text(_In_ HSTRING text);
-
-        IFACEMETHODIMP get_Size(_Out_ ABI::AdaptiveNamespace::TextSize* textSize);
-        IFACEMETHODIMP put_Size(ABI::AdaptiveNamespace::TextSize textSize);
-
-        IFACEMETHODIMP get_Weight(_Out_ ABI::AdaptiveNamespace::TextWeight* textWeight);
-        IFACEMETHODIMP put_Weight(ABI::AdaptiveNamespace::TextWeight textWeight);
-
-        IFACEMETHODIMP get_Color(_Out_ ABI::AdaptiveNamespace::ForegroundColor* textColor);
-        IFACEMETHODIMP put_Color(ABI::AdaptiveNamespace::ForegroundColor textColor);
-
+        // IAdaptiveRichTextBlock
         IFACEMETHODIMP get_Wrap(_Out_ boolean* wrap);
         IFACEMETHODIMP put_Wrap(boolean wrap);
-
-        IFACEMETHODIMP get_IsSubtle(_Out_ boolean* isSubtle);
-        IFACEMETHODIMP put_IsSubtle(boolean isSubtle);
 
         IFACEMETHODIMP get_MaxLines(_Out_ UINT32* value);
         IFACEMETHODIMP put_MaxLines(UINT32 value);
@@ -46,11 +30,8 @@ namespace AdaptiveNamespace
         IFACEMETHODIMP get_HorizontalAlignment(_Out_ ABI::AdaptiveNamespace::HAlignment* HorizontalAlignment);
         IFACEMETHODIMP put_HorizontalAlignment(ABI::AdaptiveNamespace::HAlignment HorizontalAlignment);
 
-        IFACEMETHODIMP get_Language(_Outptr_ HSTRING* language);
-        IFACEMETHODIMP put_Language(_In_ HSTRING language);
-
-        IFACEMETHODIMP get_FontStyle(_Out_ ABI::AdaptiveNamespace::FontStyle* style);
-        IFACEMETHODIMP put_FontStyle(ABI::AdaptiveNamespace::FontStyle style);
+        IFACEMETHODIMP get_Paragraphs(
+            _COM_Outptr_ ABI::Windows::Foundation::Collections::IVector<ABI::AdaptiveNamespace::AdaptiveParagraph*>** paragraphs);
 
         // IAdaptiveCardElement
         IFACEMETHODIMP get_ElementType(_Out_ ABI::AdaptiveNamespace::ElementType* elementType);
@@ -114,16 +95,9 @@ namespace AdaptiveNamespace
 
     private:
         boolean m_wrap;
-        boolean m_subtle;
         UINT32 m_maxLines;
-        Microsoft::WRL::Wrappers::HString m_text;
-        Microsoft::WRL::Wrappers::HString m_language;
-        ABI::AdaptiveNamespace::FontStyle m_fontStyle;
-        ABI::AdaptiveNamespace::TextSize m_textSize;
-        ABI::AdaptiveNamespace::TextWeight m_textWeight;
-        ABI::AdaptiveNamespace::ForegroundColor m_foregroundColor;
         ABI::AdaptiveNamespace::HAlignment m_horizontalAlignment;
     };
 
-    ActivatableClass(AdaptiveTextBlock);
+    ActivatableClass(AdaptiveRichTextBlock);
 }
