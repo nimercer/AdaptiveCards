@@ -1684,7 +1684,6 @@ namespace AdaptiveNamespace
                                          ABI::AdaptiveNamespace::ForegroundColor color,
                                          ABI::AdaptiveNamespace::ContainerStyle containerStyle,
                                          bool isSubtle,
-                                         bool wrap,
                                          UINT32 maxWidth,
                                          ABI::AdaptiveNamespace::TextWeight weight,
                                          _In_ ABI::Windows::UI::Xaml::Controls::ITextBlock* xamlTextBlock,
@@ -1711,11 +1710,6 @@ namespace AdaptiveNamespace
         // Apply font weight
         THROW_IF_FAILED(localTextBlock->put_FontWeight(xamlFontWeight));
 
-        // Apply the wrap value to the xaml element
-        THROW_IF_FAILED(localTextBlock->put_TextWrapping(wrap ? TextWrapping::TextWrapping_WrapWholeWords :
-                                                                TextWrapping::TextWrapping_NoWrap));
-        THROW_IF_FAILED(localTextBlock->put_TextTrimming(TextTrimming::TextTrimming_CharacterEllipsis));
-
         // Apply font family
         ComPtr<IInspectable> inspectable;
         ComPtr<IFontFamily> fontFamily;
@@ -1729,6 +1723,39 @@ namespace AdaptiveNamespace
         ComPtr<IFrameworkElement> textBlockAsFrameworkElement;
         THROW_IF_FAILED(localTextBlock.As(&textBlockAsFrameworkElement));
         THROW_IF_FAILED(textBlockAsFrameworkElement->put_MaxWidth(maxWidth));
+    }
+
+    HRESULT StyleXamlTextBlockProperties(_In_ ABI::Windows::UI::Xaml::Controls::ITextBlock* xamlTextBlock,
+                                         bool wrap,
+                                         UINT maxLines,
+                                         ABI::AdaptiveNamespace::HAlignment adaptiveHorizontalAlignment)
+    {
+        // Apply the wrap value to the xaml element
+        RETURN_IF_FAILED(xamlTextBlock->put_TextWrapping(wrap ? TextWrapping::TextWrapping_WrapWholeWords :
+                                                                TextWrapping::TextWrapping_NoWrap));
+        RETURN_IF_FAILED(xamlTextBlock->put_TextTrimming(TextTrimming::TextTrimming_CharacterEllipsis));
+
+        // Set the maximum number of lines the text block should show
+        ComPtr<ITextBlock> localTextBlock(xamlTextBlock);
+        ComPtr<ITextBlock2> xamlTextBlock2;
+        localTextBlock.As(&xamlTextBlock2);
+        RETURN_IF_FAILED(xamlTextBlock2->put_MaxLines(maxLines));
+
+        // Set the horizontal alignment of the text
+        switch (adaptiveHorizontalAlignment)
+        {
+        case ABI::AdaptiveNamespace::HAlignment::Left:
+            RETURN_IF_FAILED(xamlTextBlock->put_TextAlignment(TextAlignment::TextAlignment_Left));
+            break;
+        case ABI::AdaptiveNamespace::HAlignment::Right:
+            RETURN_IF_FAILED(xamlTextBlock->put_TextAlignment(TextAlignment::TextAlignment_Right));
+            break;
+        case ABI::AdaptiveNamespace::HAlignment::Center:
+            RETURN_IF_FAILED(xamlTextBlock->put_TextAlignment(TextAlignment::TextAlignment_Center));
+            break;
+        }
+
+        return S_OK;
     }
 
     void XamlBuilder::StyleXamlTextBlock(_In_ IAdaptiveTextConfig* textConfig,
@@ -1754,12 +1781,13 @@ namespace AdaptiveNamespace
         UINT32 maxWidth;
         THROW_IF_FAILED(textConfig->get_MaxWidth(&maxWidth));
 
+        StyleXamlTextBlockProperties(xamlTextBlock, wrap, MAXUINT32, HAlignment_Left);
+
         StyleXamlTextBlock(ABI::AdaptiveNamespace::FontStyle::Default,
                            textSize,
                            textColor,
                            containerStyle,
                            Boolify(isSubtle),
-                           wrap,
                            maxWidth,
                            textWeight,
                            xamlTextBlock,
@@ -1837,6 +1865,17 @@ namespace AdaptiveNamespace
         ComPtr<ITextBlock> xamlTextBlock =
             XamlHelpers::CreateXamlClass<ITextBlock>(HStringReference(RuntimeClass_Windows_UI_Xaml_Controls_TextBlock));
 
+        UINT maxLines;
+        THROW_IF_FAILED(adaptiveTextBlock->get_MaxLines(&maxLines));
+
+        boolean shouldWrap = false;
+        THROW_IF_FAILED(adaptiveTextBlock->get_Wrap(&shouldWrap));
+
+        ABI::AdaptiveNamespace::HAlignment adaptiveHorizontalAlignment;
+        THROW_IF_FAILED(adaptiveTextBlock->get_HorizontalAlignment(&adaptiveHorizontalAlignment));
+
+        THROW_IF_FAILED(StyleXamlTextBlockProperties(xamlTextBlock.Get(), shouldWrap, maxLines, adaptiveHorizontalAlignment));
+
         // ITextBlock2 will be used later on
         ComPtr<ITextBlock2> xamlTextBlock2;
         THROW_IF_FAILED(xamlTextBlock.As(&xamlTextBlock2));
@@ -1881,35 +1920,11 @@ namespace AdaptiveNamespace
             }
         }
 
-        // Set the maximum number of lines the text block should show
-        UINT maxLines;
-        THROW_IF_FAILED(adaptiveTextBlock->get_MaxLines(&maxLines));
-        THROW_IF_FAILED(xamlTextBlock2->put_MaxLines(maxLines));
-
-        ABI::AdaptiveNamespace::HAlignment adaptiveHorizontalAlignment;
-        THROW_IF_FAILED(adaptiveTextBlock->get_HorizontalAlignment(&adaptiveHorizontalAlignment));
-
-        // Set the horizontal alignment of the text
-        switch (adaptiveHorizontalAlignment)
-        {
-        case ABI::AdaptiveNamespace::HAlignment::Left:
-            THROW_IF_FAILED(xamlTextBlock->put_TextAlignment(TextAlignment::TextAlignment_Left));
-            break;
-        case ABI::AdaptiveNamespace::HAlignment::Right:
-            THROW_IF_FAILED(xamlTextBlock->put_TextAlignment(TextAlignment::TextAlignment_Right));
-            break;
-        case ABI::AdaptiveNamespace::HAlignment::Center:
-            THROW_IF_FAILED(xamlTextBlock->put_TextAlignment(TextAlignment::TextAlignment_Center));
-            break;
-        }
         ABI::AdaptiveNamespace::TextSize textblockSize;
         THROW_IF_FAILED(adaptiveTextElement->get_Size(&textblockSize));
 
         ABI::AdaptiveNamespace::TextWeight textWeight;
         THROW_IF_FAILED(adaptiveTextElement->get_Weight(&textWeight));
-
-        boolean shouldWrap = false;
-        THROW_IF_FAILED(adaptiveTextBlock->get_Wrap(&shouldWrap));
 
         // Ensure left edge of text is consistent regardless of font size, so both small and large fonts
         // are flush on the left edge of the card by enabling TrimSideBearings
@@ -1925,7 +1940,6 @@ namespace AdaptiveNamespace
                            textColor,
                            containerStyle,
                            isSubtle,
-                           shouldWrap,
                            MAXUINT32,
                            textWeight,
                            xamlTextBlock.Get(),

@@ -220,7 +220,6 @@ namespace AdaptiveNamespace
                                        ABI::AdaptiveNamespace::ForegroundColor color,
                                        ABI::AdaptiveNamespace::ContainerStyle containerStyle,
                                        bool isSubtle,
-                                       bool wrap,
                                        UINT32 maxWidth,
                                        ABI::AdaptiveNamespace::TextWeight weight,
                                        _In_ ABI::Windows::UI::Xaml::Controls::ITextBlock* xamlTextBlock,
