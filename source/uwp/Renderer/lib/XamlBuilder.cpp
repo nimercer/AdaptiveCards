@@ -1680,85 +1680,61 @@ namespace AdaptiveNamespace
         return solidColorBrushAsBrush;
     }
 
-    HRESULT SetMaxLines(ITextBlock* textBlock, UINT maxLines)
+    HRESULT SetXamlInlinesWithTextConfig(_In_ IAdaptiveRenderContext* renderContext,
+                                         _In_ IAdaptiveRenderArgs* renderArgs,
+                                         _In_ IAdaptiveTextConfig* textConfig,
+                                         _In_ HSTRING language,
+                                         _In_ HSTRING text,
+                                         _In_ ITextBlock* textBlock)
     {
-        ComPtr<ITextBlock> localTextBlock(textBlock);
-        ComPtr<ITextBlock2> xamlTextBlock2;
-        localTextBlock.As(&xamlTextBlock2);
-        RETURN_IF_FAILED(xamlTextBlock2->put_MaxLines(maxLines));
-        return S_OK;
-    }
+        // Create an AdaptiveTextRun with the language, text, and configuration to pass to SetXamlInlines
+        ComPtr<AdaptiveNamespace::AdaptiveTextRun> textRun;
+        RETURN_IF_FAILED(MakeAndInitialize<AdaptiveNamespace::AdaptiveTextRun>(&textRun));
 
-    HRESULT SetMaxLines(IRichTextBlock* textBlock, UINT maxLines)
-    {
-        ComPtr<IRichTextBlock> localTextBlock(textBlock);
-        ComPtr<IRichTextBlock2> xamlTextBlock2;
-        localTextBlock.As(&xamlTextBlock2);
-        RETURN_IF_FAILED(xamlTextBlock2->put_MaxLines(maxLines));
-        return S_OK;
-    }
+        RETURN_IF_FAILED(textRun->put_Text(text));
+        RETURN_IF_FAILED(textRun->put_Language(language));
 
-    template<typename TXamlTextBlockType> HRESULT SetWrap(_In_ TXamlTextBlockType* xamlTextBlock, bool wrap)
-    {
-        RETURN_IF_FAILED(xamlTextBlock->put_TextWrapping(wrap ? TextWrapping::TextWrapping_WrapWholeWords :
-                                                                TextWrapping::TextWrapping_NoWrap));
-        RETURN_IF_FAILED(xamlTextBlock->put_TextTrimming(TextTrimming::TextTrimming_CharacterEllipsis));
-        return S_OK;
-    }
+        ABI::AdaptiveNamespace::TextWeight weight;
+        RETURN_IF_FAILED(textConfig->get_Weight(&weight));
+        RETURN_IF_FAILED(textRun->put_Weight(weight));
 
-    template<typename TXamlTextBlockType>
-    HRESULT StyleXamlTextBlockProperties(_In_ TXamlTextBlockType* xamlTextBlock,
-                                         bool wrap,
-                                         UINT maxLines,
-                                         ABI::AdaptiveNamespace::HAlignment adaptiveHorizontalAlignment)
-    {
-        // Apply the wrap value to the xaml element
-        RETURN_IF_FAILED(SetWrap(xamlTextBlock, wrap));
+        ABI::AdaptiveNamespace::ForegroundColor color;
+        RETURN_IF_FAILED(textConfig->get_Color(&color));
+        RETURN_IF_FAILED(textRun->put_Color(color));
 
-        // Set the maximum number of lines the text block should show
-        if (maxLines != MAXUINT32)
-        {
-            RETURN_IF_FAILED(SetMaxLines(xamlTextBlock, maxLines));
-        }
+        ABI::AdaptiveNamespace::TextSize size;
+        RETURN_IF_FAILED(textConfig->get_Size(&size));
+        RETURN_IF_FAILED(textRun->put_Size(size));
 
-        // Set the horizontal alignment of the text
-        switch (adaptiveHorizontalAlignment)
-        {
-        case ABI::AdaptiveNamespace::HAlignment::Left:
-            RETURN_IF_FAILED(xamlTextBlock->put_TextAlignment(TextAlignment::TextAlignment_Left));
-            break;
-        case ABI::AdaptiveNamespace::HAlignment::Right:
-            RETURN_IF_FAILED(xamlTextBlock->put_TextAlignment(TextAlignment::TextAlignment_Right));
-            break;
-        case ABI::AdaptiveNamespace::HAlignment::Center:
-            RETURN_IF_FAILED(xamlTextBlock->put_TextAlignment(TextAlignment::TextAlignment_Center));
-            break;
-        }
+        boolean isSubtle;
+        RETURN_IF_FAILED(textConfig->get_IsSubtle(&isSubtle));
+        RETURN_IF_FAILED(textRun->put_IsSubtle(isSubtle));
 
-        return S_OK;
-    }
+        ComPtr<IVector<ABI::Windows::UI::Xaml::Documents::Inline*>> inlines;
+        RETURN_IF_FAILED(textBlock->get_Inlines(&inlines));
 
-    template<typename TAdaptiveType, typename TXamlTextBlockType>
-    HRESULT StyleXamlTextBlockProperties(TAdaptiveType* adaptiveElement, _In_ TXamlTextBlockType* xamlTextBlock)
-    {
+        RETURN_IF_FAILED(SetXamlInlines(textRun.Get(), renderContext, renderArgs, inlines.Get()));
+
+        // Set wrap and maxwidth
         boolean wrap;
-        RETURN_IF_FAILED(adaptiveElement->get_Wrap(&wrap));
+        RETURN_IF_FAILED(textConfig->get_Wrap(&wrap));
+        RETURN_IF_FAILED(SetWrapProperties(textBlock, wrap));
 
-        UINT32 maxLines;
-        RETURN_IF_FAILED(adaptiveElement->get_MaxLines(&maxLines));
+        ComPtr<IFrameworkElement> textBlockAsFrameworkElement;
+        ComPtr<ITextBlock> localTextBlock(textBlock);
+        RETURN_IF_FAILED(localTextBlock.As(&textBlockAsFrameworkElement));
 
-        HAlignment horizontalAlignment;
-        RETURN_IF_FAILED(adaptiveElement->get_HorizontalAlignment(&horizontalAlignment));
-
-        RETURN_IF_FAILED(StyleXamlTextBlockProperties(xamlTextBlock, wrap, maxLines, horizontalAlignment));
+        UINT32 maxWidth;
+        RETURN_IF_FAILED(textConfig->get_MaxWidth(&maxWidth));
+        textBlockAsFrameworkElement->put_MaxWidth(maxWidth);
 
         return S_OK;
     }
 
-    static HRESULT SetTextOnXamlTextBlock(_In_ ABI::AdaptiveNamespace::IAdaptiveTextElement* adaptiveTextElement,
-                                          _In_ ABI::AdaptiveNamespace::IAdaptiveRenderContext* renderContext,
-                                          _In_ ABI::AdaptiveNamespace::IAdaptiveRenderArgs* renderArgs,
-                                          _In_ IVector<ABI::Windows::UI::Xaml::Documents::Inline*>* inlines)
+    static HRESULT SetXamlInlines(_In_ ABI::AdaptiveNamespace::IAdaptiveTextElement* adaptiveTextElement,
+                                  _In_ ABI::AdaptiveNamespace::IAdaptiveRenderContext* renderContext,
+                                  _In_ ABI::AdaptiveNamespace::IAdaptiveRenderArgs* renderArgs,
+                                  _In_ IVector<ABI::Windows::UI::Xaml::Documents::Inline*>* inlines)
     {
         HString text;
         RETURN_IF_FAILED(adaptiveTextElement->get_Text(text.GetAddressOf()));
@@ -1806,21 +1782,12 @@ namespace AdaptiveNamespace
         return S_OK;
     }
 
-    static HRESULT SetTextOnXamlTextBlock(_In_ ABI::AdaptiveNamespace::IAdaptiveTextElement* adaptiveTextElement,
-                                          _In_ ABI::AdaptiveNamespace::IAdaptiveRenderContext* renderContext,
-                                          _In_ ABI::AdaptiveNamespace::IAdaptiveRenderArgs* renderArgs,
-                                          _In_ ITextBlock* textBlock)
-    {
-        ComPtr<IVector<ABI::Windows::UI::Xaml::Documents::Inline*>> inlines;
-        textBlock->get_Inlines(&inlines);
-        return SetTextOnXamlTextBlock(adaptiveTextElement, renderContext, renderArgs, inlines.Get());
-    }
-
     HRESULT XamlBuilder::BuildRichTextBlock(ABI::AdaptiveNamespace::IAdaptiveCardElement* adaptiveCardElement,
                                             ABI::AdaptiveNamespace::IAdaptiveRenderContext* renderContext,
                                             ABI::AdaptiveNamespace::IAdaptiveRenderArgs* renderArgs,
                                             ABI::Windows::UI::Xaml::IUIElement** textBlockControl)
     {
+        // Create the top level rich text block and set it's properties
         ComPtr<IRichTextBlock> xamlRichTextBlock =
             XamlHelpers::CreateXamlClass<IRichTextBlock>(HStringReference(RuntimeClass_Windows_UI_Xaml_Controls_RichTextBlock));
 
@@ -1830,6 +1797,7 @@ namespace AdaptiveNamespace
 
         RETURN_IF_FAILED(StyleXamlTextBlockProperties(adaptiveRichTextBlock.Get(), xamlRichTextBlock.Get()));
 
+        // Add the paragraphs
         ComPtr<IVector<Block*>> xamlBlocks;
         RETURN_IF_FAILED(xamlRichTextBlock->get_Blocks(&xamlBlocks));
 
@@ -1845,6 +1813,7 @@ namespace AdaptiveNamespace
                 RETURN_IF_FAILED(xamlParagraph.As(&paragraphAsBlock));
                 RETURN_IF_FAILED(xamlBlocks->Append(paragraphAsBlock.Get()));
 
+                // Add the Inlines
                 ComPtr<IVector<ABI::Windows::UI::Xaml::Documents::Inline*>> xamlInlines;
                 RETURN_IF_FAILED(xamlParagraph->get_Inlines(&xamlInlines));
 
@@ -1864,7 +1833,7 @@ namespace AdaptiveNamespace
                         ComPtr<ITextElement> xamlInlineAsTextElement;
                         RETURN_IF_FAILED(xamlInline.As(&xamlInlineAsTextElement));
 
-                        RETURN_IF_FAILED(SetTextOnXamlTextBlock(textRun.Get(), renderContext, renderArgs, xamlInlines.Get()));
+                        RETURN_IF_FAILED(SetXamlInlines(textRun.Get(), renderContext, renderArgs, xamlInlines.Get()));
 
                         return S_OK;
                     });
@@ -1890,9 +1859,12 @@ namespace AdaptiveNamespace
         THROW_IF_FAILED(StyleXamlTextBlockProperties(adaptiveTextBlock.Get(), xamlTextBlock.Get()));
 
         ComPtr<IAdaptiveTextElement> adaptiveTextElement;
-        adaptiveTextBlock.As(&adaptiveTextElement);
+        THROW_IF_FAILED(adaptiveTextBlock.As(&adaptiveTextElement));
 
-        THROW_IF_FAILED(SetTextOnXamlTextBlock(adaptiveTextElement.Get(), renderContext, renderArgs, xamlTextBlock.Get()));
+        ComPtr<IVector<ABI::Windows::UI::Xaml::Documents::Inline*>> inlines;
+        THROW_IF_FAILED(xamlTextBlock->get_Inlines(&inlines));
+
+        THROW_IF_FAILED(SetXamlInlines(adaptiveTextElement.Get(), renderContext, renderArgs, inlines.Get()));
 
         // Ensure left edge of text is consistent regardless of font size, so both small and large fonts
         // are flush on the left edge of the card by enabling TrimSideBearings
@@ -2769,53 +2741,6 @@ namespace AdaptiveNamespace
                            columnSetControl);
     }
 
-    HRESULT SetFactTextOnXamlTextBlock(_In_ IAdaptiveRenderContext* renderContext,
-                                       _In_ IAdaptiveRenderArgs* renderArgs,
-                                       _In_ IAdaptiveTextConfig* textConfig,
-                                       _In_ HSTRING language,
-                                       _In_ HSTRING text,
-                                       _In_ ITextBlock* textBlock)
-    {
-        ComPtr<AdaptiveNamespace::AdaptiveTextRun> textRun;
-        RETURN_IF_FAILED(MakeAndInitialize<AdaptiveNamespace::AdaptiveTextRun>(&textRun));
-
-        RETURN_IF_FAILED(textRun->put_Text(text));
-        RETURN_IF_FAILED(textRun->put_Language(language));
-
-        ABI::AdaptiveNamespace::ForegroundColor color;
-        RETURN_IF_FAILED(textConfig->get_Color(&color));
-        RETURN_IF_FAILED(textRun->put_Color(color));
-
-        boolean isSubtle;
-        RETURN_IF_FAILED(textConfig->get_IsSubtle(&isSubtle));
-        RETURN_IF_FAILED(textRun->put_IsSubtle(isSubtle));
-
-        ABI::AdaptiveNamespace::TextSize size;
-        RETURN_IF_FAILED(textConfig->get_Size(&size));
-        RETURN_IF_FAILED(textRun->put_Size(size));
-
-        ABI::AdaptiveNamespace::TextWeight weight;
-        RETURN_IF_FAILED(textConfig->get_Weight(&weight));
-        RETURN_IF_FAILED(textRun->put_Weight(weight));
-
-        RETURN_IF_FAILED(SetTextOnXamlTextBlock(textRun.Get(), renderContext, renderArgs, textBlock));
-
-        // Set wrap and maxwidth
-        boolean wrap;
-        RETURN_IF_FAILED(textConfig->get_Wrap(&wrap));
-        RETURN_IF_FAILED(SetWrap(textBlock, wrap));
-
-        ComPtr<IFrameworkElement> textBlockAsFrameworkElement;
-        ComPtr<ITextBlock> localTextBlock(textBlock);
-        RETURN_IF_FAILED(localTextBlock.As(&textBlockAsFrameworkElement));
-
-        UINT32 maxWidth;
-        RETURN_IF_FAILED(textConfig->get_MaxWidth(&maxWidth));
-        textBlockAsFrameworkElement->put_MaxWidth(maxWidth);
-
-        return S_OK;
-    }
-
     void XamlBuilder::BuildFactSet(_In_ IAdaptiveCardElement* adaptiveCardElement,
                                    _In_ IAdaptiveRenderContext* renderContext,
                                    _In_ IAdaptiveRenderArgs* renderArgs,
@@ -2886,7 +2811,7 @@ namespace AdaptiveNamespace
                 HString factTitle;
                 THROW_IF_FAILED(localFact->get_Title(factTitle.GetAddressOf()));
 
-                THROW_IF_FAILED(SetFactTextOnXamlTextBlock(
+                THROW_IF_FAILED(SetXamlInlinesWithTextConfig(
                     renderContext, renderArgs, titleTextConfig.Get(), language.Get(), factTitle.Get(), titleTextBlock.Get()));
 
                 // Create the value xaml textblock and style it from Host options
@@ -2899,7 +2824,7 @@ namespace AdaptiveNamespace
                 HString factValue;
                 THROW_IF_FAILED(localFact->get_Value(factValue.GetAddressOf()));
 
-                THROW_IF_FAILED(SetFactTextOnXamlTextBlock(
+                THROW_IF_FAILED(SetXamlInlinesWithTextConfig(
                     renderContext, renderArgs, valueTextConfig.Get(), language.Get(), factValue.Get(), valueTextBlock.Get()));
 
                 // Mark the column container with the current column

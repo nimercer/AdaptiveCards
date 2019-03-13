@@ -1,6 +1,7 @@
 #include "pch.h"
-#include "XamlHelpers.h"
 #include "HtmlHelpers.h"
+#include "XamlBuilder.h"
+#include "XamlHelpers.h"
 #include <safeint.h>
 
 using namespace Microsoft::WRL;
@@ -10,31 +11,39 @@ using namespace ABI::Windows::Foundation;
 using namespace ABI::Windows::Foundation::Collections;
 using namespace AdaptiveNamespace;
 using namespace msl::utilities;
+using namespace ABI::Windows::UI::Xaml::Controls;
 using namespace ABI::Windows::UI::Xaml::Media;
 using namespace ABI::Windows::UI::Xaml;
 
-ComPtr<IBrush> GetSolidColorBrush(ABI::Windows::UI::Color color)
+HRESULT SetMaxLines(ITextBlock* textBlock, UINT maxLines)
 {
-    ComPtr<ISolidColorBrush> solidColorBrush =
-        XamlHelpers::CreateXamlClass<ISolidColorBrush>(HStringReference(RuntimeClass_Windows_UI_Xaml_Media_SolidColorBrush));
-    THROW_IF_FAILED(solidColorBrush->put_Color(color));
-    ComPtr<IBrush> solidColorBrushAsBrush;
-    THROW_IF_FAILED(solidColorBrush.As(&solidColorBrushAsBrush));
-    return solidColorBrushAsBrush;
+    ComPtr<ITextBlock> localTextBlock(textBlock);
+    ComPtr<ITextBlock2> xamlTextBlock2;
+    localTextBlock.As(&xamlTextBlock2);
+    RETURN_IF_FAILED(xamlTextBlock2->put_MaxLines(maxLines));
+    return S_OK;
 }
 
-template<typename T>
-void StyleInlineProperties(ABI::AdaptiveNamespace::IAdaptiveRenderContext* renderContext,
-                           ABI::AdaptiveNamespace::IAdaptiveRenderArgs* renderArgs,
-                           ABI::AdaptiveNamespace::FontStyle fontStyle,
-                           ABI::AdaptiveNamespace::TextSize size,
-                           ABI::AdaptiveNamespace::ForegroundColor color,
-                           bool isSubtle,
-                           UINT32 maxWidth,
-                           ABI::AdaptiveNamespace::TextWeight weight,
-                           _In_ T* xamlTextBlock)
+HRESULT SetMaxLines(IRichTextBlock* textBlock, UINT maxLines)
 {
-    ComPtr<T> localTextBlock(xamlTextBlock);
+    ComPtr<IRichTextBlock> localTextBlock(textBlock);
+    ComPtr<IRichTextBlock2> xamlTextBlock2;
+    localTextBlock.As(&xamlTextBlock2);
+    RETURN_IF_FAILED(xamlTextBlock2->put_MaxLines(maxLines));
+    return S_OK;
+}
+
+HRESULT StyleTextElement(_In_ IAdaptiveTextElement* adaptiveTextElement,
+                         _In_ ABI::AdaptiveNamespace::IAdaptiveRenderContext* renderContext,
+                         _In_ ABI::AdaptiveNamespace::IAdaptiveRenderArgs* renderArgs,
+                         _In_ ABI::Windows::UI::Xaml::Documents::ITextElement* xamlTextElement)
+{
+    // Get the forground color based on text color, subtle, and container style
+    ABI::AdaptiveNamespace::ForegroundColor adaptiveTextColor;
+    RETURN_IF_FAILED(adaptiveTextElement->get_Color(&adaptiveTextColor));
+
+    boolean isSubtle = false;
+    RETURN_IF_FAILED(adaptiveTextElement->get_IsSubtle(&isSubtle));
 
     ABI::AdaptiveNamespace::ContainerStyle containerStyle;
     renderArgs->get_ContainerStyle(&containerStyle);
@@ -43,23 +52,32 @@ void StyleInlineProperties(ABI::AdaptiveNamespace::IAdaptiveRenderContext* rende
     renderContext->get_HostConfig(&hostConfig);
 
     ABI::Windows::UI::Color fontColor;
-    THROW_IF_FAILED(GetColorFromAdaptiveColor(hostConfig.Get(), color, containerStyle, isSubtle, &fontColor));
+    THROW_IF_FAILED(GetColorFromAdaptiveColor(hostConfig.Get(), adaptiveTextColor, containerStyle, isSubtle, &fontColor));
 
-    ComPtr<IBrush> fontColorBrush = GetSolidColorBrush(fontColor);
-    THROW_IF_FAILED(localTextBlock->put_Foreground(fontColorBrush.Get()));
-
-    HString fontFamilyName;
-    UINT32 fontSize;
-    ABI::Windows::UI::Text::FontWeight xamlFontWeight;
+    ComPtr<IBrush> fontColorBrush = XamlBuilder::GetSolidColorBrush(fontColor);
+    THROW_IF_FAILED(xamlTextElement->put_Foreground(fontColorBrush.Get()));
 
     // Retrieve the desired FontFamily, FontSize, and FontWeight values
-    THROW_IF_FAILED(GetFontDataFromStyle(hostConfig.Get(), fontStyle, size, weight, fontFamilyName.GetAddressOf(), &fontSize, &xamlFontWeight));
+    ABI::AdaptiveNamespace::TextSize adaptiveTextSize;
+    RETURN_IF_FAILED(adaptiveTextElement->get_Size(&adaptiveTextSize));
+
+    ABI::AdaptiveNamespace::TextWeight adaptiveTextWeight;
+    RETURN_IF_FAILED(adaptiveTextElement->get_Weight(&adaptiveTextWeight));
+
+    ABI::AdaptiveNamespace::FontStyle fontStyle;
+    RETURN_IF_FAILED(adaptiveTextElement->get_FontStyle(&fontStyle));
+
+    UINT32 fontSize;
+    HString fontFamilyName;
+    ABI::Windows::UI::Text::FontWeight xamlFontWeight;
+    THROW_IF_FAILED(GetFontDataFromStyle(
+        hostConfig.Get(), fontStyle, adaptiveTextSize, adaptiveTextWeight, fontFamilyName.GetAddressOf(), &fontSize, &xamlFontWeight));
 
     // Apply font size
-    THROW_IF_FAILED(localTextBlock->put_FontSize((double)fontSize));
+    THROW_IF_FAILED(xamlTextElement->put_FontSize((double)fontSize));
 
     // Apply font weight
-    THROW_IF_FAILED(localTextBlock->put_FontWeight(xamlFontWeight));
+    THROW_IF_FAILED(xamlTextElement->put_FontWeight(xamlFontWeight));
 
     // Apply font family
     ComPtr<IInspectable> inspectable;
@@ -69,37 +87,7 @@ void StyleInlineProperties(ABI::AdaptiveNamespace::IAdaptiveRenderContext* rende
                                                               &fontFamilyFactory));
     THROW_IF_FAILED(
         fontFamilyFactory->CreateInstanceWithName(fontFamilyName.Get(), nullptr, inspectable.ReleaseAndGetAddressOf(), &fontFamily));
-    THROW_IF_FAILED(xamlTextBlock->put_FontFamily(fontFamily.Get()));
-
-    if (maxWidth != MAXUINT32)
-    {
-        ComPtr<IFrameworkElement> textBlockAsFrameworkElement;
-        THROW_IF_FAILED(localTextBlock.As(&textBlockAsFrameworkElement));
-        THROW_IF_FAILED(textBlockAsFrameworkElement->put_MaxWidth(maxWidth));
-    }
-}
-
-template<typename T>
-HRESULT StyleInlinePropertiesFromTextElement(_In_ IAdaptiveTextElement* adaptiveTextElement,
-                                             _In_ ABI::AdaptiveNamespace::IAdaptiveRenderContext* renderContext,
-                                             _In_ ABI::AdaptiveNamespace::IAdaptiveRenderArgs* renderArgs,
-                                             _In_ T* elementToStyle)
-{
-    ABI::AdaptiveNamespace::FontStyle fontStyle;
-    RETURN_IF_FAILED(adaptiveTextElement->get_FontStyle(&fontStyle));
-
-    ABI::AdaptiveNamespace::ForegroundColor textColor;
-    RETURN_IF_FAILED(adaptiveTextElement->get_Color(&textColor));
-    boolean isSubtle = false;
-    RETURN_IF_FAILED(adaptiveTextElement->get_IsSubtle(&isSubtle));
-
-    ABI::AdaptiveNamespace::TextSize textblockSize;
-    RETURN_IF_FAILED(adaptiveTextElement->get_Size(&textblockSize));
-
-    ABI::AdaptiveNamespace::TextWeight textWeight;
-    RETURN_IF_FAILED(adaptiveTextElement->get_Weight(&textWeight));
-
-    StyleInlineProperties(renderContext, renderArgs, fontStyle, textblockSize, textColor, isSubtle, MAXUINT32, textWeight, elementToStyle);
+    THROW_IF_FAILED(xamlTextElement->put_FontFamily(fontFamily.Get()));
 
     return S_OK;
 }
@@ -263,8 +251,7 @@ HRESULT AddSingleTextInline(_In_ IAdaptiveTextElement* adaptiveTextElement,
     ComPtr<ABI::Windows::UI::Xaml::Documents::ITextElement> runAsTextElement;
     RETURN_IF_FAILED(run.As(&runAsTextElement));
 
-    RETURN_IF_FAILED(
-        StyleInlinePropertiesFromTextElement(adaptiveTextElement, renderContext, renderArgs, runAsTextElement.Get()));
+    RETURN_IF_FAILED(StyleTextElement(adaptiveTextElement, renderContext, renderArgs, runAsTextElement.Get()));
 
     if (isBold)
     {
