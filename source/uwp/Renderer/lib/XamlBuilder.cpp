@@ -1698,6 +1698,14 @@ namespace AdaptiveNamespace
         return S_OK;
     }
 
+    template<typename TXamlTextBlockType> HRESULT SetWrap(_In_ TXamlTextBlockType* xamlTextBlock, bool wrap)
+    {
+        RETURN_IF_FAILED(xamlTextBlock->put_TextWrapping(wrap ? TextWrapping::TextWrapping_WrapWholeWords :
+                                                                TextWrapping::TextWrapping_NoWrap));
+        RETURN_IF_FAILED(xamlTextBlock->put_TextTrimming(TextTrimming::TextTrimming_CharacterEllipsis));
+        return S_OK;
+    }
+
     template<typename TXamlTextBlockType>
     HRESULT StyleXamlTextBlockProperties(_In_ TXamlTextBlockType* xamlTextBlock,
                                          bool wrap,
@@ -1705,9 +1713,7 @@ namespace AdaptiveNamespace
                                          ABI::AdaptiveNamespace::HAlignment adaptiveHorizontalAlignment)
     {
         // Apply the wrap value to the xaml element
-        RETURN_IF_FAILED(xamlTextBlock->put_TextWrapping(wrap ? TextWrapping::TextWrapping_WrapWholeWords :
-                                                                TextWrapping::TextWrapping_NoWrap));
-        RETURN_IF_FAILED(xamlTextBlock->put_TextTrimming(TextTrimming::TextTrimming_CharacterEllipsis));
+        RETURN_IF_FAILED(SetWrap(xamlTextBlock, wrap));
 
         // Set the maximum number of lines the text block should show
         if (maxLines != MAXUINT32)
@@ -2794,15 +2800,18 @@ namespace AdaptiveNamespace
 
         RETURN_IF_FAILED(SetTextOnXamlTextBlock(textRun.Get(), renderContext, renderArgs, textBlock));
 
+        // Set wrap and maxwidth
         boolean wrap;
         RETURN_IF_FAILED(textConfig->get_Wrap(&wrap));
+        RETURN_IF_FAILED(SetWrap(textBlock, wrap));
+
+        ComPtr<IFrameworkElement> textBlockAsFrameworkElement;
+        ComPtr<ITextBlock> localTextBlock(textBlock);
+        RETURN_IF_FAILED(localTextBlock.As(&textBlockAsFrameworkElement));
 
         UINT32 maxWidth;
         RETURN_IF_FAILED(textConfig->get_MaxWidth(&maxWidth));
-
-        
-
-        RETURN_IF_FAILED(StyleXamlTextBlockProperties(textBlock, wrap, maxWidth, HAlignment_Left));
+        textBlockAsFrameworkElement->put_MaxWidth(maxWidth);
 
         return S_OK;
     }
