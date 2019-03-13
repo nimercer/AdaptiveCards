@@ -36,26 +36,31 @@ HRESULT SetMaxLines(IRichTextBlock* textBlock, UINT maxLines)
 HRESULT StyleTextElement(_In_ IAdaptiveTextElement* adaptiveTextElement,
                          _In_ ABI::AdaptiveNamespace::IAdaptiveRenderContext* renderContext,
                          _In_ ABI::AdaptiveNamespace::IAdaptiveRenderArgs* renderArgs,
+                         bool isInHyperlink,
                          _In_ ABI::Windows::UI::Xaml::Documents::ITextElement* xamlTextElement)
 {
+    ComPtr<IAdaptiveHostConfig> hostConfig;
+    renderContext->get_HostConfig(&hostConfig);
+
     // Get the forground color based on text color, subtle, and container style
     ABI::AdaptiveNamespace::ForegroundColor adaptiveTextColor;
     RETURN_IF_FAILED(adaptiveTextElement->get_Color(&adaptiveTextColor));
 
-    boolean isSubtle = false;
-    RETURN_IF_FAILED(adaptiveTextElement->get_IsSubtle(&isSubtle));
+    // If the card author set the default color and we're in a hyperlink, don't change the color and lose the hyperlink styling
+    if (adaptiveTextColor != ABI::AdaptiveNamespace::ForegroundColor::Default || !isInHyperlink)
+    {
+        boolean isSubtle = false;
+        RETURN_IF_FAILED(adaptiveTextElement->get_IsSubtle(&isSubtle));
 
-    ABI::AdaptiveNamespace::ContainerStyle containerStyle;
-    renderArgs->get_ContainerStyle(&containerStyle);
+        ABI::AdaptiveNamespace::ContainerStyle containerStyle;
+        renderArgs->get_ContainerStyle(&containerStyle);
 
-    ComPtr<IAdaptiveHostConfig> hostConfig;
-    renderContext->get_HostConfig(&hostConfig);
+        ABI::Windows::UI::Color fontColor;
+        THROW_IF_FAILED(GetColorFromAdaptiveColor(hostConfig.Get(), adaptiveTextColor, containerStyle, isSubtle, &fontColor));
 
-    ABI::Windows::UI::Color fontColor;
-    THROW_IF_FAILED(GetColorFromAdaptiveColor(hostConfig.Get(), adaptiveTextColor, containerStyle, isSubtle, &fontColor));
-
-    ComPtr<IBrush> fontColorBrush = XamlBuilder::GetSolidColorBrush(fontColor);
-    THROW_IF_FAILED(xamlTextElement->put_Foreground(fontColorBrush.Get()));
+        ComPtr<IBrush> fontColorBrush = XamlBuilder::GetSolidColorBrush(fontColor);
+        THROW_IF_FAILED(xamlTextElement->put_Foreground(fontColorBrush.Get()));
+    }
 
     // Retrieve the desired FontFamily, FontSize, and FontWeight values
     ABI::AdaptiveNamespace::TextSize adaptiveTextSize;
@@ -176,7 +181,7 @@ HRESULT AddListInlines(_In_ ABI::AdaptiveNamespace::IAdaptiveTextElement* adapti
 
         RETURN_IF_FAILED(inlines->Append(runAsInline.Get()));
 
-        RETURN_IF_FAILED(AddTextInlines(adaptiveTextElement, renderContext, renderArgs, listChild.Get(), false, false, inlines));
+        RETURN_IF_FAILED(AddTextInlines(adaptiveTextElement, renderContext, renderArgs, listChild.Get(), false, false, false, inlines));
 
         ComPtr<ABI::Windows::Data::Xml::Dom::IXmlNode> nextListChild;
         RETURN_IF_FAILED(listChild->get_NextSibling(&nextListChild));
@@ -193,6 +198,7 @@ HRESULT AddLinkInline(_In_ ABI::AdaptiveNamespace::IAdaptiveTextElement* adaptiv
                       _In_ ABI::Windows::Data::Xml::Dom::IXmlNode* node,
                       BOOL isBold,
                       BOOL isItalic,
+                      bool isInHyperlink,
                       _In_ IVector<ABI::Windows::UI::Xaml::Documents::Inline*>* inlines)
 {
     ComPtr<ABI::Windows::Data::Xml::Dom::IXmlNamedNodeMap> attributeMap;
@@ -227,7 +233,7 @@ HRESULT AddLinkInline(_In_ ABI::AdaptiveNamespace::IAdaptiveTextElement* adaptiv
     RETURN_IF_FAILED(hyperlinkAsSpan->get_Inlines(hyperlinkInlines.GetAddressOf()));
 
     RETURN_IF_FAILED(
-        AddTextInlines(adaptiveTextElement, renderContext, renderArgs, node, isBold, isItalic, hyperlinkInlines.Get()));
+        AddTextInlines(adaptiveTextElement, renderContext, renderArgs, node, isBold, isItalic, true, hyperlinkInlines.Get()));
 
     ComPtr<ABI::Windows::UI::Xaml::Documents::IInline> hyperLinkAsInline;
     RETURN_IF_FAILED(hyperlink.As(&hyperLinkAsInline));
@@ -242,6 +248,7 @@ HRESULT AddSingleTextInline(_In_ IAdaptiveTextElement* adaptiveTextElement,
                             _In_ HSTRING string,
                             bool isBold,
                             bool isItalic,
+                            bool isInHyperlink,
                             _In_ IVector<ABI::Windows::UI::Xaml::Documents::Inline*>* inlines)
 {
     ComPtr<ABI::Windows::UI::Xaml::Documents::IRun> run = XamlHelpers::CreateXamlClass<ABI::Windows::UI::Xaml::Documents::IRun>(
@@ -251,7 +258,7 @@ HRESULT AddSingleTextInline(_In_ IAdaptiveTextElement* adaptiveTextElement,
     ComPtr<ABI::Windows::UI::Xaml::Documents::ITextElement> runAsTextElement;
     RETURN_IF_FAILED(run.As(&runAsTextElement));
 
-    RETURN_IF_FAILED(StyleTextElement(adaptiveTextElement, renderContext, renderArgs, runAsTextElement.Get()));
+    RETURN_IF_FAILED(StyleTextElement(adaptiveTextElement, renderContext, renderArgs, isInHyperlink, runAsTextElement.Get()));
 
     if (isBold)
     {
@@ -285,6 +292,7 @@ HRESULT AddTextInlines(_In_ IAdaptiveTextElement* adaptiveTextElement,
                        _In_ ABI::Windows::Data::Xml::Dom::IXmlNode* node,
                        BOOL isBold,
                        BOOL isItalic,
+                       bool isInHyperlink,
                        _In_ IVector<ABI::Windows::UI::Xaml::Documents::Inline*>* inlines)
 {
     ComPtr<ABI::Windows::Data::Xml::Dom::IXmlNode> childNode;
@@ -309,13 +317,15 @@ HRESULT AddTextInlines(_In_ IAdaptiveTextElement* adaptiveTextElement,
 
         if (isLinkResult == 0)
         {
-            RETURN_IF_FAILED(AddLinkInline(adaptiveTextElement, renderContext, renderArgs, childNode.Get(), isBold, isItalic, inlines));
+            RETURN_IF_FAILED(
+                AddLinkInline(adaptiveTextElement, renderContext, renderArgs, childNode.Get(), isBold, isItalic, isInHyperlink, inlines));
         }
         else if (isTextResult == 0)
         {
             HString text;
             RETURN_IF_FAILED(GetTextFromXmlNode(childNode.Get(), text.GetAddressOf()));
-            RETURN_IF_FAILED(AddSingleTextInline(adaptiveTextElement, renderContext, renderArgs, text.Get(), isBold, isItalic, inlines));
+            RETURN_IF_FAILED(
+                AddSingleTextInline(adaptiveTextElement, renderContext, renderArgs, text.Get(), isBold, isItalic, isInHyperlink, inlines));
         }
         else
         {
@@ -325,6 +335,7 @@ HRESULT AddTextInlines(_In_ IAdaptiveTextElement* adaptiveTextElement,
                                             childNode.Get(),
                                             isBold || (isBoldResult == 0),
                                             isItalic || (isItalicResult == 0),
+                                            isInHyperlink,
                                             inlines));
         }
 
@@ -340,6 +351,7 @@ HRESULT AddHtmlInlines(_In_ ABI::AdaptiveNamespace::IAdaptiveTextElement* adapti
                        _In_ ABI::AdaptiveNamespace::IAdaptiveRenderContext* renderContext,
                        _In_ ABI::AdaptiveNamespace::IAdaptiveRenderArgs* renderArgs,
                        _In_ ABI::Windows::Data::Xml::Dom::IXmlNode* node,
+                       bool isInHyperlink,
                        _In_ IVector<ABI::Windows::UI::Xaml::Documents::Inline*>* inlines)
 {
     ComPtr<ABI::Windows::Data::Xml::Dom::IXmlNode> childNode;
@@ -366,11 +378,12 @@ HRESULT AddHtmlInlines(_In_ ABI::AdaptiveNamespace::IAdaptiveTextElement* adapti
         }
         else if (isParagraphResult == 0)
         {
-            RETURN_IF_FAILED(AddTextInlines(adaptiveTextElement, renderContext, renderArgs, childNode.Get(), false, false, inlines));
+            RETURN_IF_FAILED(
+                AddTextInlines(adaptiveTextElement, renderContext, renderArgs, childNode.Get(), false, false, isInHyperlink, inlines));
         }
         else
         {
-            RETURN_IF_FAILED(AddHtmlInlines(adaptiveTextElement, renderContext, renderArgs, childNode.Get(), inlines));
+            RETURN_IF_FAILED(AddHtmlInlines(adaptiveTextElement, renderContext, renderArgs, childNode.Get(), isInHyperlink, inlines));
         }
 
         ComPtr<ABI::Windows::Data::Xml::Dom::IXmlNode> nextChildNode;

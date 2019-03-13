@@ -4,6 +4,7 @@ HRESULT AddHtmlInlines(_In_ ABI::AdaptiveNamespace::IAdaptiveTextElement* adapti
                        _In_ ABI::AdaptiveNamespace::IAdaptiveRenderContext* renderContext,
                        _In_ ABI::AdaptiveNamespace::IAdaptiveRenderArgs* renderArgs,
                        _In_ ABI::Windows::Data::Xml::Dom::IXmlNode* node,
+                       bool isInHyperlink,
                        _In_ ABI::Windows::Foundation::Collections::IVector<ABI::Windows::UI::Xaml::Documents::Inline*>* inlines);
 
 HRESULT AddTextInlines(_In_ ABI::AdaptiveNamespace::IAdaptiveTextElement* adaptiveTextElement,
@@ -12,6 +13,7 @@ HRESULT AddTextInlines(_In_ ABI::AdaptiveNamespace::IAdaptiveTextElement* adapti
                        _In_ ABI::Windows::Data::Xml::Dom::IXmlNode* node,
                        BOOL isBold,
                        BOOL isItalic,
+                       bool isInHyperlink,
                        _In_ ABI::Windows::Foundation::Collections::IVector<ABI::Windows::UI::Xaml::Documents::Inline*>* inlines);
 
 HRESULT AddSingleTextInline(_In_ ABI::AdaptiveNamespace::IAdaptiveTextElement* adaptiveTextElement,
@@ -20,6 +22,7 @@ HRESULT AddSingleTextInline(_In_ ABI::AdaptiveNamespace::IAdaptiveTextElement* a
                             _In_ HSTRING string,
                             bool isBold,
                             bool isItalic,
+                            bool isInHyperlink,
                             _In_ ABI::Windows::Foundation::Collections::IVector<ABI::Windows::UI::Xaml::Documents::Inline*>* inlines);
 
 HRESULT SetMaxLines(ABI::Windows::UI::Xaml::Controls::ITextBlock* textBlock, UINT maxLines);

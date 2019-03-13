@@ -224,6 +224,7 @@ namespace AdaptiveNamespace
         static HRESULT SetXamlInlines(_In_ ABI::AdaptiveNamespace::IAdaptiveTextElement* adaptiveTextElement,
                                       _In_ ABI::AdaptiveNamespace::IAdaptiveRenderContext* renderContext,
                                       _In_ ABI::AdaptiveNamespace::IAdaptiveRenderArgs* renderArgs,
+                                      bool isInHyperlink,
                                       _In_ ABI::Windows::Foundation::Collections::IVector<ABI::Windows::UI::Xaml::Documents::Inline*>* inlines);
         static void BuildPanelChildren(_In_ ABI::Windows::Foundation::Collections::IVector<ABI::AdaptiveNamespace::IAdaptiveCardElement*>* children,
                                        _In_ ABI::Windows::UI::Xaml::Controls::IPanel* parentPanel,
