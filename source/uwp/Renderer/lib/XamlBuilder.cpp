@@ -1680,12 +1680,12 @@ namespace AdaptiveNamespace
         return solidColorBrushAsBrush;
     }
 
-    HRESULT SetXamlInlinesWithTextConfig(_In_ IAdaptiveRenderContext* renderContext,
-                                         _In_ IAdaptiveRenderArgs* renderArgs,
-                                         _In_ IAdaptiveTextConfig* textConfig,
-                                         _In_ HSTRING language,
-                                         _In_ HSTRING text,
-                                         _In_ ITextBlock* textBlock)
+    HRESULT XamlBuilder::SetXamlInlinesWithTextConfig(_In_ IAdaptiveRenderContext* renderContext,
+                                                      _In_ IAdaptiveRenderArgs* renderArgs,
+                                                      _In_ IAdaptiveTextConfig* textConfig,
+                                                      _In_ HSTRING language,
+                                                      _In_ HSTRING text,
+                                                      _In_ ITextBlock* textBlock)
     {
         // Create an AdaptiveTextRun with the language, text, and configuration to pass to SetXamlInlines
         ComPtr<AdaptiveNamespace::AdaptiveTextRun> textRun;
@@ -1731,10 +1731,10 @@ namespace AdaptiveNamespace
         return S_OK;
     }
 
-    static HRESULT SetXamlInlines(_In_ ABI::AdaptiveNamespace::IAdaptiveTextElement* adaptiveTextElement,
-                                  _In_ ABI::AdaptiveNamespace::IAdaptiveRenderContext* renderContext,
-                                  _In_ ABI::AdaptiveNamespace::IAdaptiveRenderArgs* renderArgs,
-                                  _In_ IVector<ABI::Windows::UI::Xaml::Documents::Inline*>* inlines)
+    HRESULT XamlBuilder::SetXamlInlines(_In_ ABI::AdaptiveNamespace::IAdaptiveTextElement* adaptiveTextElement,
+                                        _In_ ABI::AdaptiveNamespace::IAdaptiveRenderContext* renderContext,
+                                        _In_ ABI::AdaptiveNamespace::IAdaptiveRenderArgs* renderArgs,
+                                        _In_ IVector<ABI::Windows::UI::Xaml::Documents::Inline*>* inlines)
     {
         HString text;
         RETURN_IF_FAILED(adaptiveTextElement->get_Text(text.GetAddressOf()));

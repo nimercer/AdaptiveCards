@@ -736,6 +736,22 @@ AdaptiveNamespaceStart
 
     [
         version(NTDDI_WIN10_RS1),
+        exclusiveto(AdaptiveTextRun),
+#ifdef ADAPTIVE_CARDS_WINDOWS
+        uuid(D81768ED-D724-4494-B141-A9B3F2613EFD),
+        contract(InternalContract, 1),
+        internal
+#else
+        uuid(09BBE759-0754-441D-B808-3CE2C188D521)
+#endif
+    ] interface IAdaptiveTextRun : IInspectable requires IAdaptiveTextElement
+    {
+        [propget] HRESULT SelectAction([out, retval] IAdaptiveActionElement * *value);
+        [propput] HRESULT SelectAction([in] IAdaptiveActionElement * value);
+    };
+
+    [
+        version(NTDDI_WIN10_RS1),
         activatable(NTDDI_WIN10_RS1),
 #ifdef ADAPTIVE_CARDS_WINDOWS
          contract(InternalContract, 1),
@@ -745,7 +761,8 @@ AdaptiveNamespaceStart
     ] 
     runtimeclass AdaptiveTextRun
     { 
-        [default] interface IAdaptiveInline; 
+        [default] interface IAdaptiveTextRun;
+        interface IAdaptiveInline; 
         interface IAdaptiveTextElement;
     };
 

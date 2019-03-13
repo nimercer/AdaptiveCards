@@ -215,7 +215,16 @@ namespace AdaptiveNamespace
                                                                                           bool isHorizontal = true);
         static void ApplyMarginToXamlElement(_In_ ABI::AdaptiveNamespace::IAdaptiveHostConfig* hostConfig,
                                              _In_ ABI::Windows::UI::Xaml::IFrameworkElement* element);
-
+        static HRESULT SetXamlInlinesWithTextConfig(_In_ ABI::AdaptiveNamespace::IAdaptiveRenderContext* renderContext,
+                                                    _In_ ABI::AdaptiveNamespace::IAdaptiveRenderArgs* renderArgs,
+                                                    _In_ ABI::AdaptiveNamespace::IAdaptiveTextConfig* textConfig,
+                                                    _In_ HSTRING language,
+                                                    _In_ HSTRING text,
+                                                    _In_ ABI::Windows::UI::Xaml::Controls::ITextBlock* textBlock);
+        static HRESULT SetXamlInlines(_In_ ABI::AdaptiveNamespace::IAdaptiveTextElement* adaptiveTextElement,
+                                      _In_ ABI::AdaptiveNamespace::IAdaptiveRenderContext* renderContext,
+                                      _In_ ABI::AdaptiveNamespace::IAdaptiveRenderArgs* renderArgs,
+                                      _In_ ABI::Windows::Foundation::Collections::IVector<ABI::Windows::UI::Xaml::Documents::Inline*>* inlines);
         static void BuildPanelChildren(_In_ ABI::Windows::Foundation::Collections::IVector<ABI::AdaptiveNamespace::IAdaptiveCardElement*>* children,
                                        _In_ ABI::Windows::UI::Xaml::Controls::IPanel* parentPanel,
                                        _In_ ABI::AdaptiveNamespace::IAdaptiveRenderContext* context,
