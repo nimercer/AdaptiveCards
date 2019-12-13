@@ -13,7 +13,13 @@
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
             <Setter Property="Padding" Value="0"/>
         </Style>
-        
+
+        <ResourceDictionary x:Name="Resource">
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/LightMode.xaml" x:Key="Light"/>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+
     </Application.Resources>
 
 </Application>

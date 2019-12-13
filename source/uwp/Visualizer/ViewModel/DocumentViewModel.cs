@@ -23,7 +23,8 @@ namespace AdaptiveCardVisualizer.ViewModel
     public class DocumentViewModel : GenericDocumentViewModel
     {
         private static AdaptiveCardRenderer _renderer;
-
+        private const string AdaptiveCardResourceDictionaryFilePath = "ms-appx:///Styles/AdaptiveCardResourceDictionary.xaml";
+       
         private DocumentViewModel(MainPageViewModel mainPageViewModel) : base(mainPageViewModel) { }
 
         private RenderedAdaptiveCard _renderedAdaptiveCard;
@@ -251,8 +252,24 @@ namespace AdaptiveCardVisualizer.ViewModel
                 _renderer.OverrideStyles.Add("Adaptive.Action.other", otherStyle);
                 */
 
+                // Enable people picker.
+                //_renderer.ElementRenderers.Set("Input.PeoplePicker", new PeoplePickerRenderer());
+
+                // Enable custom image renderer.
+                _renderer.ElementRenderers.Set("Image", new CustomImageRenderer());
+
+                var adaptiveResourceDictionary = new ResourceDictionary();
+
+                var mergedDictionary = new ResourceDictionary
+                {
+                    Source = new Uri(AdaptiveCardResourceDictionaryFilePath),
+                };
+
+                adaptiveResourceDictionary.MergedDictionaries.Add(mergedDictionary);
+                _renderer.OverrideStyles = adaptiveResourceDictionary;
+
             }
-            catch
+            catch (Exception e)
             {
                 if (Debugger.IsAttached)
                 {

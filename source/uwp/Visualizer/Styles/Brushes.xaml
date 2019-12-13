@@ -1,0 +1,391 @@
+﻿<ResourceDictionary
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--Global Brushes-->
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="{StaticResource AltHigh}"/>
+    <SolidColorBrush x:Key="WindowForegroundBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="RootGridBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="TransparentBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="TopButtonBackgroundPointerOverBrush" Color="{StaticResource AltMediumDark}" />
+    <SolidColorBrush x:Key="TopButtonForegroundPointerOverBrush" Color="{StaticResource BaseHigh}" />
+    <SolidColorBrush x:Key="TopButtonForegroundDisabledBrush" Color="{StaticResource BaseMediumLow}" />
+    <SolidColorBrush x:Key="TopButtonBackgroundDisabledBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="TopButtonBackgroundBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="TopButtonForegroundBrush" Color="{StaticResource BaseHigh}" />
+    <SolidColorBrush x:Key="TopButtonForegroundPointerPressedBrush" Color="{StaticResource BaseHigh}" />
+    <SolidColorBrush x:Key="TopButtonBackgroundPointerPressedBrush" Color="{StaticResource ChromeAltHigh}" />
+    <SolidColorBrush x:Key="FocusOutlineOuterBorderBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="FocusOutlineInnerBorderBrush" Color="{StaticResource AltHigh}"/>
+    <SolidColorBrush x:Key="FocusOutlineBorderUnfocusedBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="CortanaLogoOuterBorderBrush" Color="{StaticResource CortanaAccent}" Opacity="0.4"/>
+    <SolidColorBrush x:Key="CortanaLogoInnerBorderBrush" Color="{StaticResource CortanaAccent}"/>
+    <SolidColorBrush x:Key="DivideRectangleBrush" Color="{StaticResource BaseLow}"/>
+    <SolidColorBrush x:Key="LoadingDividerBrush" Color="{StaticResource BaseLow}"/>
+
+    <LinearGradientBrush x:Key="ConversationWindowTopRectangleFillBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Color="{StaticResource AltHigh}" Offset="0" />
+        <GradientStop Color="{StaticResource AltHighTransparent}" Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="SuggestionsRightButtonRectangleFillBrush" StartPoint="0.5,0.5" EndPoint="0,0.5">
+        <GradientStop Color="{StaticResource AltHigh}" Offset="0" />
+        <GradientStop Color="{StaticResource AltHighTransparent}" Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="SuggestionsLeftButtonRectangleFillBrush" StartPoint="0.5,0.5" EndPoint="1.0,0.5">
+        <GradientStop Color="{StaticResource AltHigh}" Offset="0" />
+        <GradientStop Color="{StaticResource AltHighTransparent}" Offset="1" />
+    </LinearGradientBrush>
+
+    <!--Shared Components-->
+    <SolidColorBrush x:Key="PrimaryButtonForegroundBrush" Color="{StaticResource AltHigh}"/>
+    <SolidColorBrush x:Key="PrimaryButtonForegroundFocusedBrush" Color="{StaticResource AltHigh}"/>
+    <SolidColorBrush x:Key="PrimaryButtonForegroundDisabledBrush" Color="{StaticResource AltMedium}"/>
+    <SolidColorBrush x:Key="PrimaryButtonBackgroundBrush" Color="{StaticResource BaseMediumHigh}"/>
+    <SolidColorBrush x:Key="PrimaryButtonBackgroundPointerOverBrush" Color="{StaticResource BaseAltHigh}"/>
+    <SolidColorBrush x:Key="PrimaryButtonBackgroundPressedBrush" Color="{StaticResource BaseAltMedium}"/>
+    <SolidColorBrush x:Key="PrimaryButtonBackgroundDisabledBrush" Color="{StaticResource BaseLow}"/>
+    <SolidColorBrush x:Key="PrimaryButtonBackgroundFocusedBrush" Color="{StaticResource BaseMediumHigh}"/>
+    <SolidColorBrush x:Key="PrimaryButtonBorderDisabledBrush" Color="{StaticResource BaseLow}"/>
+    <SolidColorBrush x:Key="PrimaryButtonBorderBrush" Color="{StaticResource BaseMediumHigh}"/>
+
+    <SolidColorBrush x:Key="SecondaryButtonForegroundBrush" Color="{StaticResource BaseMediumHigh}"/>
+    <SolidColorBrush x:Key="SecondaryButtonForegroundPointerOverBrush" Color="{StaticResource BaseMediumHigh}"/>
+    <SolidColorBrush x:Key="SecondaryButtonForegroundPressedBrush" Color="{StaticResource AltHigh}"/>
+    <SolidColorBrush x:Key="SecondaryButtonForegroundDisabledBrush" Color="{StaticResource ChromeAltMedium}"/>
+    <SolidColorBrush x:Key="SecondaryButtonForegroundFocusedBrush" Color="{StaticResource BaseMediumHigh}"/>
+    <SolidColorBrush x:Key="SecondaryButtonBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="SecondaryButtonBackgroundPointerOverBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="SecondaryButtonBackgroundPressedBrush" Color="{StaticResource BaseAltMedium}"/>
+    <SolidColorBrush x:Key="SecondaryButtonBackgroundFocusedBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="SecondaryButtonBorderBrush" Color="{StaticResource ChromeAltHigh}"/>
+    <SolidColorBrush x:Key="SecondaryButtonBorderPointerOverBrush" Color="{StaticResource BaseMedium}"/>
+    <SolidColorBrush x:Key="SecondaryButtonBorderPressedBrush" Color="{StaticResource BaseAltMedium}"/>
+    <SolidColorBrush x:Key="SecondaryButtonDisabledBorderBrush" Color="{StaticResource ChromeLow}"/>
+
+    <SolidColorBrush x:Key="HyperlinkButtonBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="HyperlinkForegroundBrush" Color="{StaticResource CortanaAccentLow}"/>
+    <SolidColorBrush x:Key="HyperlinkForegroundPointerOverBrush" Color="{StaticResource BaseHigh}" Opacity="0.6"/>
+    <SolidColorBrush x:Key="HyperlinkForegroundPressedBrush" Color="{StaticResource BaseHigh}" Opacity="0.4"/>
+    <SolidColorBrush x:Key="HyperlinkForegroundDisabledBrush" Color="{StaticResource BaseHigh}" Opacity="0.4"/>
+
+    <SolidColorBrush x:Key="RadioButtonOuterEllipseStrokeBrush" Color="{StaticResource BaseAltMedium}"/>
+    <SolidColorBrush x:Key="RadioButtonOuterEllipsePressedStrokeBrush" Color="{StaticResource BaseMediumHigh}"/>
+    <SolidColorBrush x:Key="RadioButtonCheckedOuterEllipseStrokeBrush" Color="{StaticResource BaseMediumHigh}"/>
+    <SolidColorBrush x:Key="RadioButtonCheckGlyphFillBrush" Color="{StaticResource BaseMediumHigh}"/>
+
+    <!--User input button-->
+    <SolidColorBrush x:Key="UserInputButtonBorderBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="UserInputButtonBackgroundBrush" Color="{StaticResource AltHigh}"/>
+    <SolidColorBrush x:Key="UserInputButtonBackgroundPointerOverBrush" Color="{StaticResource AltMediumDark}"/>
+    <SolidColorBrush x:Key="UserInputButtonBackgroundPressedBrush" Color="{StaticResource ChromeAltHigh}"/>
+    <SolidColorBrush x:Key="UserInputButtonBackgroundDisabledBrush" Color="{StaticResource ChromeLow}"/>
+
+    <SolidColorBrush x:Key="UserInputButtonForegroundBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="UserInputButtonForegroundPointerOverBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="UserInputButtonForegroundPressedBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="UserInputButtonForegroundDisabledBrush" Color="{StaticResource BaseHigh}" Opacity="0.4"/>
+
+    <!--Input text box-->
+    <SolidColorBrush x:Key="UserInputRectanglePointerOverBrush" Color="{StaticResource BaseLow}"/>
+
+    <SolidColorBrush x:Key="UserInputTextBoxBorderPointerOverBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="UserInputTextBoxBackgroundBrush" Color="{StaticResource AltHigh}"/>
+    <SolidColorBrush x:Key="UserInputTextBoxForegroundBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="UserInputTextBoxSelectionHighlightBrush" Color="{StaticResource ChromeAltLow}" />
+    <SolidColorBrush x:Key="UserInputTextBoxPlaceholderTextBrush" Color="{StaticResource ChromeAltMedium}"/>
+
+    <SolidColorBrush x:Key="DeleteButtonUserInputTextBoxForegroundBrush" Color="{StaticResource BaseAltMedium}"/>
+    <SolidColorBrush x:Key="DeleteButtonUserInputTextBoxForegroundPointerOverBrush" Color="{StaticResource BaseMediumHigh}"/>
+    <SolidColorBrush x:Key="DeleteButtonUserInputTextBoxForegroundFocusedBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="DeleteButtonUserInputTextBoxForegroundPressedBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="DeleteButtonUserInputTextBoxBackgroundBrush" Color="{StaticResource BaseLow}"/>
+
+    <LinearGradientBrush x:Key="UserInputTextBoxFadeBackgroundBrush" EndPoint="0.5,0.5" StartPoint="1,0.5">
+        <GradientStop Color="{StaticResource AltHighTransparent}" Offset="0" />
+        <GradientStop Color="{StaticResource AltHigh}" Offset="1" />
+    </LinearGradientBrush>
+
+    <!--User and Cortana conversation message-->
+    <SolidColorBrush x:Key="UserTextBlockBorderBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="UserTextBlockBorderPointerOverBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="UserTextBlockBorderDisabledBrush" Color="{StaticResource ChromeLow}" Opacity="0.8"/>
+    <SolidColorBrush x:Key="UserTextBlockBackgroundBrush" Color="{StaticResource ChromeLow}"/>
+    <SolidColorBrush x:Key="UserTextBlockBackgroundPointerOverBrush" Color="{StaticResource ChromeMediumLow}"/>
+    <SolidColorBrush x:Key="UserTextBlockBackgroundDisabledBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="UserTextBlockBackgroundLoadingBrush" Color="{StaticResource ChromeLow}"/>
+    <SolidColorBrush x:Key="UserTextBlockSelectionHighlightBrush" Color="{StaticResource ChromeAltLow}" />
+    <SolidColorBrush x:Key="UserTextBlockForegroundBrush" Color="{StaticResource BaseHigh}" />
+    <SolidColorBrush x:Key="UserTextBlockForegroundDisabledBrush" Color="{StaticResource BaseHigh}" Opacity="0.8" />
+
+    <SolidColorBrush x:Key="CortanaTextBlockBorderBrush" Color="{StaticResource ChromeMediumLow}"/>
+    <SolidColorBrush x:Key="CortanaTextBlockBorderPointerOverBrush" Color="{StaticResource BaseLow}"/>
+    <SolidColorBrush x:Key="CortanaTextBlockBorderDisabledBrush" Color="{StaticResource ChromeMediumLow}" Opacity="0.8"/>
+    <SolidColorBrush x:Key="CortanaTextBlockBackgroundBrush" Color="{StaticResource AltHigh}"/>
+    <SolidColorBrush x:Key="CortanaTextBlockBackgroundPointerOverBrush" Color="{StaticResource ChromeLow}"/>
+    <SolidColorBrush x:Key="CortanaTextBlockLoadingBrush" Color="{StaticResource ChromeLow}"/>
+    <SolidColorBrush x:Key="CortanaTextBlockSelectionHighlightBrush" Color="{StaticResource ChromeAltLow}"/>
+    <SolidColorBrush x:Key="CortanaTextTextBlockForegroundBrush" Color="{StaticResource BaseAltMedium}"/>
+    <SolidColorBrush x:Key="CortanaTextTextBlockForegroundPointerOverBrush" Color="{StaticResource BaseMediumHigh}"/>
+    <SolidColorBrush x:Key="CortanaTextTextBlockForegroundDisabledBrush" Color="{StaticResource BaseAltMedium}" Opacity="0.8"/>
+
+    <SolidColorBrush x:Key="TextTextBlockForegroundBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="TextTextBlockForegroundBrushDisabled" Color="{StaticResource BaseHigh}" Opacity="0.4"/>
+
+    <!--Adaptive card-->
+    <Color x:Key="DropShadowPanelColor">Black</Color>
+    <SolidColorBrush x:Key="AdaptiveCardControlBorderBrush" Color="{StaticResource AltHigh}"/>
+    <SolidColorBrush x:Key="AdaptiveCardControlBackgroundBrush" Color="{StaticResource AltHigh}"/>
+    <SolidColorBrush x:Key="AdaptiveCardAttributionSeparatorBrush" Color="{StaticResource ChromeMediumLow}"/>
+    <SolidColorBrush x:Key="AdaptiveCardAttributionBackgroundBrush" Color="{StaticResource ChromeMediumDark}"/>
+    <SolidColorBrush x:Key="AdaptiveCardAttributionBackgroundPointerOverBrush" Color="{StaticResource ChromeLow}"/>
+    <SolidColorBrush x:Key="AdaptiveCardAttributionForegroundBrush" Color="{StaticResource BaseHigh}"/>
+
+    <!-- Listening Icon -->
+    <SolidColorBrush x:Key="ListeningIconForegroundBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="ListeningIconBackgroundBrush" Color="{StaticResource BaseHighTransparent}" />
+
+    <!--Debug-->
+    <SolidColorBrush x:Key="DebugButtonBackgroundBrush" Color="{StaticResource AltHigh}"/>
+    <SolidColorBrush x:Key="DebugButtonForegroundBrush" Color="{StaticResource BaseHigh}" Opacity="0.5"/>
+
+    <!--AuthWebView-->
+    <Color x:Key="DefaultWebViewBackgroundColor">Black</Color>
+    <SolidColorBrush x:Key="AuthWebViewRetryButtonBackgroundBrush" Color="{StaticResource ChromeMediumDark}"/>
+    <SolidColorBrush x:Key="AuthWebViewRetryButtonForegroundBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="AuthWebViewRetryButtonSecondaryForegroundBrush" Color="{StaticResource BaseMedium}"/>
+
+    <!-- Main Menu -->
+    <SolidColorBrush x:Key="MenuPointerOverBackgroundBrush" Color="{StaticResource AltMediumDark}" />
+    <SolidColorBrush x:Key="MenuPointerOverForegroundBrush" Color="{StaticResource BaseHigh}" />
+    <SolidColorBrush x:Key="MenuPointerPressedBackgroundBrush" Color="{StaticResource ChromeAltHigh}" />
+    <SolidColorBrush x:Key="MenuDisabledForgroundBrush" Color="{StaticResource ChromeAltMedium}" />
+    <SolidColorBrush x:Key="MenuPopupBackgroundBrush" Color="{StaticResource ChromeHigh}" />
+    <SolidColorBrush x:Key="MenuBorderBrush" Color="{StaticResource ChromeHigh}" />
+    <SolidColorBrush x:Key="MenuSubTextForegroundBrush" Color="{StaticResource BaseAltMedium}" />
+
+    <!--Settings Menu-->
+    <SolidColorBrush x:Key="SettingsMenuBorderBrush" Color="{StaticResource AltMediumHigh}" />
+    <SolidColorBrush x:Key="SettingsMenuPointerOverBorderBrush" Color="{StaticResource ChromeAltHigh}" />
+    <SolidColorBrush x:Key="SettingsMenuPressedBorderBrush" Color="{StaticResource BaseAltMedium}" />
+    <SolidColorBrush x:Key="SettingsMenuSelectedBorderBrush" Color="{StaticResource AltAltMedium}" />
+
+    <SolidColorBrush x:Key="SettingsMenuBackgroundBrush" Color="{StaticResource AltMediumHigh}"/>
+    <SolidColorBrush x:Key="SettingsMenuPointerOverBackgroundBrush" Color="{StaticResource AltMediumHigh}"/>
+    <SolidColorBrush x:Key="SettingsMenuPressedBackgroundBrush" Color="{StaticResource BaseAltMedium}" />
+    <SolidColorBrush x:Key="SettingsMenuPointerSelectedBackgroundBrush" Color="{StaticResource ChromeAltHigh}" />
+    <SolidColorBrush x:Key="SettingsMenuSelectedBackgroundBrush" Color="{StaticResource AltAltMedium}" />
+
+    <SolidColorBrush x:Key="SettingsMenuForegroundBrush" Color="{StaticResource BaseMediumHigh}" />
+    <SolidColorBrush x:Key="SettingsMenuPointerOverForegroundBrush" Color="{StaticResource BaseHigh}" />
+    <SolidColorBrush x:Key="SettingsMenuPressedForegroundBrush" Color="{StaticResource ChromeHigh}" />
+    <SolidColorBrush x:Key="SettingsMenuDisabledForgroundBrush" Color="{StaticResource BaseAltMedium}" />
+
+    <!-- About Page -->
+    <SolidColorBrush x:Key="DividerBorderBrush" Color="{StaticResource ChromeMediumLow}" />
+    <SolidColorBrush x:Key="AadUpsellBackgroundBrush" Color="{StaticResource ChromeMedium}" />
+    <SolidColorBrush x:Key="UpdatesTextBrush" Color="{StaticResource BaseAltMedium}"/>
+    <SolidColorBrush x:Key="CheckingForUpdatesProgressRingBrush" Color="{StaticResource BaseHigh}"/>
+
+    <!--People Picker-->
+    <SolidColorBrush x:Key="PersonTileBorderBrush" Color="{StaticResource AltMediumLow}"/>
+    <SolidColorBrush x:Key="PersonTileHCBorderBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="DeletePersonButtonBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="DeletePersonButtonForegroundBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="PersonTileTextForegroundBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="PersonTileBackgroundBrush" Color="{StaticResource ChromeHigh}"/>
+    <SolidColorBrush x:Key="SearchBoxBackgroundBrush" Color="{StaticResource AltHigh}" Opacity="0.4"/>
+
+    <!--Error Banners-->
+    <SolidColorBrush x:Key="ErrorBannerBackgroundBrush" Color="{StaticResource ChromeHigh}"/>
+    <SolidColorBrush x:Key="ErrorBannerPointerOverBorderBrush" Color="{StaticResource AltLow}"/>
+    <SolidColorBrush x:Key="ErrorBannerBorderBrushHC" Color="Transparent"/>
+    <SolidColorBrush x:Key="ErrorBannerUserActionMessageBrush" Color="{StaticResource BaseMediumLow}"/>
+    <SolidColorBrush x:Key="ErrorBannerDescriptionBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="ErrorBannerCloseButtonBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="ErrorBannerBorderFocussedBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="ErrorBannerWarningAccentBrush" Color="{StaticResource ErrorMedium}"/>
+    <SolidColorBrush x:Key="ErrorBannerCriticalAccentBrush" Color="{StaticResource ErrorHigh}"/>
+    <SolidColorBrush x:Key="ErrorBannerInformativeAccentBrush" Color="{StaticResource ErrorInformative}"/>
+
+    <!--Signed out-->
+    <SolidColorBrush x:Key="SignedOutTextBlockForegroundBrush" Color="{StaticResource BaseAltMedium}"/>
+
+    <!--Privacy settings-->
+    <SolidColorBrush x:Key="PrivacySettingsForegroundBrush" Color="{StaticResource BaseAltMedium}"/>
+
+    <!-- Give Feedback Page -->
+    <SolidColorBrush x:Key="FeedbackInputTextBoxBorderBrush" Color="{StaticResource BaseHigh}" Opacity="0.05"/>
+    <SolidColorBrush x:Key="FeedbackInputTextBoxBackgroundBrush" Color="{StaticResource ChromeLow}"/>
+
+    <!-- Language Pages -->
+    <SolidColorBrush x:Key="LanguageAltTextForegroundBrush" Color="{StaticResource BaseAltMedium}" />
+
+    <!--Menus-->
+    <SolidColorBrush x:Key="MenuFlyoutBackgroundBrush" Color="{StaticResource ChromeHigh}"/>
+    <SolidColorBrush x:Key="MenuFlyoutItemForegroundBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="MenuFlyoutItemForegroundPointerOverBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="MenuFlyoutItemForegroundDisabledBrush" Color="{StaticResource ChromeAltMedium}"/>
+    <SolidColorBrush x:Key="MenuFlyoutItemBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="MenuFlyoutItemBackgroundPointerOverBrush" Color="{StaticResource ChromeMedium}"/>
+    <SolidColorBrush x:Key="MenuFlyoutItemBackgroundPressedBrush" Color="{StaticResource ChromeMediumHigh}"/>
+    <SolidColorBrush x:Key="MenuFlyoutItemIconBackgroundBrush" Color="{StaticResource BaseMediumHigh}"/>
+
+    <!--Adaptive Cards-->
+    <SolidColorBrush x:Key="AdaptiveInputBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="AdaptiveInputBackgroundPointerOverBrush" Color="{StaticResource ChromeMediumHigh}"/>
+    <SolidColorBrush x:Key="AdaptiveInputBorderBrush" Color="{StaticResource ChromeAltHigh}"/>
+    <SolidColorBrush x:Key="AdaptiveInputBorderDisabledBrush" Color="{StaticResource BaseLow}"/>
+    <SolidColorBrush x:Key="AdaptiveInputBorderHighContrastBrush" Color="{StaticResource ChromeLow}"/>
+    <SolidColorBrush x:Key="AdaptiveInputBorderPointerOverBrush" Color="{StaticResource BaseMedium}"/>
+    <SolidColorBrush x:Key="AdaptiveInputBorderFocusedBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="AdaptiveInputInnerBorderFocusedBrush" Color="{StaticResource AltHigh}"/>
+    <SolidColorBrush x:Key="AdaptiveInputBorderPointerOverHighContrastBrush" Color="{StaticResource ChromeMediumHigh}"/>
+    <SolidColorBrush x:Key="AdaptiveInputForegroundBrush" Color="{StaticResource BaseMediumHigh}"/>
+    <SolidColorBrush x:Key="AdaptiveInputButtonForegroundBrush" Color="{StaticResource BaseMediumHigh}"/>
+    <SolidColorBrush x:Key="AdaptiveInputForegroundDisabledBrush" Color="{StaticResource ChromeAltMedium}"/>
+    <SolidColorBrush x:Key="AdaptiveInputSelectionHighlightBrush" Color="{StaticResource ChromeAltLow}"/>
+
+    <SolidColorBrush x:Key="AdaptiveDropDownBackgroundBrush" Color="{StaticResource ChromeHigh}"/>
+    <SolidColorBrush x:Key="AdaptiveDropDownBackgroundPointerOverBrush" Color="{StaticResource ChromeMediumLow}"/>
+    <SolidColorBrush x:Key="AdaptiveDropDownBackgroundSelectedBrush" Color="{StaticResource ChromeLow}"/>
+    <SolidColorBrush x:Key="AdaptiveDropDownBackgroundSelectedPointerOverBrush" Color="{StaticResource BaseLow}"/>
+    <SolidColorBrush x:Key="AdaptiveDropDownForegroundPointerOverBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="AdaptiveDropDownBorderBrush" Color="{StaticResource ChromeHigh}"/>
+    <SolidColorBrush x:Key="AdaptiveDropDownBorderPointerOverBrush" Color="{StaticResource ChromeMediumLow}"/>
+    <SolidColorBrush x:Key="AdaptiveDropDownBorderSelectedOverBrush" Color="{StaticResource ChromeLow}"/>
+    <SolidColorBrush x:Key="AdaptiveDropDownBorderSelectedPointerOverBrush" Color="{StaticResource BaseLow}"/>
+
+    <SolidColorBrush x:Key="AdaptiveCalendarCalendarItemBackgroundBrush" Color="{StaticResource AltHigh}"/>
+    <SolidColorBrush x:Key="AdaptiveCalendarSelectedCalendarItemBorderBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="AdaptiveCalendarOutOfScopeItemBackgroundBrush" Color="{StaticResource ChromeMedium}"/>
+
+    <SolidColorBrush x:Key="AdaptiveTimePickerForegroundFocusedPointerOverBrush" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="AdaptiveTimePickerBackgroundFocusedPointerOverBrush" Color="{StaticResource ChromeMediumHigh}"/>
+
+    <!--SuggestionScrollBar-->
+    <SolidColorBrush x:Key="SuggestionButtonPillBorderBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="SuggestionButtonPillBackgroundBrush" Color="{StaticResource ChromeLow}"/>
+    <SolidColorBrush x:Key="SuggestionButtonForegroundBrush" Color="{StaticResource BaseMediumHigh}"/>
+
+    <SolidColorBrush x:Key="SuggestionButtonBackgroundPointerOverBrush" Color="{StaticResource ChromeMediumLow}"/>
+    <SolidColorBrush x:Key="SuggestionButtonBorderPointerOverBrush" Color="{StaticResource ChromeMediumLow}"/>
+    <SolidColorBrush x:Key="SuggestionButtonPillBorderPointerOverBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="SuggestionButtonForegroundPointerOverBrush" Color="{StaticResource BaseMediumHigh}"/>
+
+    <SolidColorBrush x:Key="SuggestionButtonBackgroundPointerPressedBrush" Color="{StaticResource BaseLow}"/>
+    <SolidColorBrush x:Key="SuggestionButtonBorderPointerPressedBrush" Color="{StaticResource BaseLow}"/>
+    <SolidColorBrush x:Key="SuggestionButtonForegroundPointerPressedBrush" Color="{StaticResource BaseMediumHigh}"/>
+
+    <SolidColorBrush x:Key="SuggestionButtonBackgroundDisabledBrush" Color="{StaticResource ChromeLow}"/>
+    <SolidColorBrush x:Key="SuggestionButtonPillBackgroundDisabledBrush" Color="{StaticResource ChromeLow}"/>
+    <SolidColorBrush x:Key="SuggestionButtonBorderDisabledBrush" Color="{StaticResource AltHigh}"/>
+    <SolidColorBrush x:Key="SuggestionButtonPillBorderDisabledBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="SuggestionButtonForegroundDisabledBrush" Color="{StaticResource BaseMediumHigh}"/>
+
+    <SolidColorBrush x:Key="SuggestionBarBackgroundBrush" Color="{StaticResource AltHigh}"/>
+
+    <!--Beta icon-->
+    <SolidColorBrush x:Key="BetaIconBackgroundBrush" Color="{StaticResource ChromeMedium}"/>
+    <SolidColorBrush x:Key="BetaIconBorderBrush" Color="{StaticResource ChromeMedium}"/>
+
+    <!--Overriden default colors - DO NOT CHANGE THESE NAMES-->
+
+    <!--This brush has been overridden for the Time Picker Flyout Presenter. We can't get proper access to override the entire style in the adaptive card so this is a work around.-->
+    <SolidColorBrush x:Key="TimePickerFlyoutPresenterHighlightFill" Color="{StaticResource ChromeMedium}"/>
+
+    <!--These brushes have been overriden for the toggle switch to match the designs without requiring to override the entire style.-->
+    <SolidColorBrush x:Key="ToggleSwitchFillOn" Color="{StaticResource BaseMediumHigh}"/>
+    <SolidColorBrush x:Key="ToggleSwitchFillOnPointerOver" Color="{StaticResource BaseAltMedium}"/>
+    <SolidColorBrush x:Key="ToggleSwitchFillOnPressed" Color="{StaticResource BaseAltMedium}"/>
+    <SolidColorBrush x:Key="ToggleSwitchFillOnDisabled" Color="{StaticResource BaseLow}"/>
+
+    <SolidColorBrush x:Key="ToggleSwitchStrokeOff" Color="{StaticResource BaseMediumHigh}"/>
+    <SolidColorBrush x:Key="ToggleSwitchStrokeOffPointerOver" Color="{StaticResource BaseAltMedium}"/>
+    <SolidColorBrush x:Key="ToggleSwitchStrokeOffPressed" Color="{StaticResource BaseAltMedium}"/>
+    <SolidColorBrush x:Key="ToggleSwitchStrokeOffDisabled" Color="{StaticResource BaseLow}"/>
+
+    <SolidColorBrush x:Key="ToggleSwitchKnobFillOn" Color="{StaticResource AltHigh}"/>
+    <SolidColorBrush x:Key="ToggleSwitchKnobFillOnPointerOver" Color="{StaticResource AltHigh}"/>
+    <SolidColorBrush x:Key="ToggleSwitchKnobFillOnPressed" Color="{StaticResource AltHigh}"/>
+    <SolidColorBrush x:Key="ToggleSwitchKnobFillOnDisabled" Color="{StaticResource AltHigh}"/>
+
+    <SolidColorBrush x:Key="ToggleSwitchKnobFillOff" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="ToggleSwitchKnobFillOffPointerOver" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="ToggleSwitchKnobFillOffPressed" Color="{StaticResource BaseHigh}"/>
+    <SolidColorBrush x:Key="ToggleSwitchKnobFillOffDisabled" Color="{StaticResource BaseHigh}"/>
+
+    <!-- Brushes for the error image-->
+    <SolidColorBrush x:Key="ErrorImageExclamationFillBrush" Color="{StaticResource ErrorImageExclamationColor}"/>
+    <SolidColorBrush x:Key="ErrorImageExclamationOutlineBrush" Opacity="0"/>
+    <SolidColorBrush x:Key="ErrorImageExclamationGreyscaleFillBrush" Color="{StaticResource ErrorImageExclamationGreyscaleColor}"/>
+    <SolidColorBrush x:Key="ErrorImageExclamationGreyscaleOutlineBrush" Opacity="0"/>
+    <SolidColorBrush x:Key="ErrorImageTriangleFillBrush" Color="{StaticResource ErrorImageTriangleColor}"/>
+    <SolidColorBrush x:Key="ErrorImageTriangleOutlineBrush" Opacity="0"/>
+    <SolidColorBrush x:Key="ErrorImageTriangleGreyscaleFillBrush" Color="{StaticResource ErrorImageTriangleGreyscaleColor}"/>
+    <SolidColorBrush x:Key="ErrorImageTriangleGreyscaleOutlineBrush" Opacity="0"/>
+    <SolidColorBrush x:Key="ErrorImageMotionLinesFillBrush" Color="{StaticResource ErrorImageMotionLinesColor}"/>
+    <SolidColorBrush x:Key="ErrorImageMotionLinesOutlineBrush" Opacity="0"/>
+
+    <!-- Brushes for Speech logging consent image-->
+    <SolidColorBrush x:Key="SpeechLoggingConsentCircleFillBrush" Color="{StaticResource SpeechLoggingConsentCircleFillColor}"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentCircleOutlineBrush" Opacity="0"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentHandLeftFillBrush" Color="{StaticResource SpeechLoggingConsentHandFillColor}"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentHandLeftOutlineBrush" Opacity="0"/>
+
+    <LinearGradientBrush x:Key="SpeechLoggingConsentArmLeftFillBrush" MappingMode="Absolute" StartPoint="89.506,38.403" EndPoint="124.123,79.400">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Offset="0.00" Color="{ThemeResource SpeechLoggingConsentClothFillShadowColor}"/>
+            <GradientStop Offset="0.35" Color="{ThemeResource SpeechLoggingConsentClothFillLightShadowColor}"/>
+            <GradientStop Offset="0.68" Color="{ThemeResource SpeechLoggingConsentClothFillColor}"/>
+        </LinearGradientBrush.GradientStops>
+        <LinearGradientBrush.Transform>
+            <MatrixTransform Matrix="1.000,0.000,-0.000,-1.000,-1.012,152.181" />
+        </LinearGradientBrush.Transform>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="SpeechLoggingConsentArmLeftOutlineBrush" Opacity="0"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentHairFillBrush" Color="{StaticResource SpeechLoggingConsentHairFillColor}"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentHairOutlineBrush" Opacity="0"/>
+
+    <LinearGradientBrush x:Key="SpeechLoggingConsentTorsoFillBrush" MappingMode="Absolute" StartPoint="52.020,23.541" EndPoint="92.279,56.666">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Offset="0.00" Color="{ThemeResource SpeechLoggingConsentClothFillShadowColor}"/>
+            <GradientStop Offset="0.58" Color="{ThemeResource SpeechLoggingConsentClothFillColor}"/>
+        </LinearGradientBrush.GradientStops>
+        <LinearGradientBrush.Transform>
+            <MatrixTransform Matrix="1.000,0.000,-0.000,-1.000,-1.012,152.181" />
+        </LinearGradientBrush.Transform>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="SpeechLoggingConsentTorsoOutlineBrush" Opacity="0"/>
+
+    <LinearGradientBrush x:Key="SpeechLoggingConsentNeckFillBrush" MappingMode="Absolute" StartPoint="72.360,99.567" EndPoint="71.553,77.410">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Offset="0.00" Color="{ThemeResource SpeechLoggingConsenNeckShadowFillColor}"/>
+            <GradientStop Offset="0.67" Color="{ThemeResource SpeechLoggingConsentSkinFillColor}"/>
+        </LinearGradientBrush.GradientStops>
+        <LinearGradientBrush.Transform>
+            <MatrixTransform Matrix="1.000,0.000,-0.000,-1.000,-60.557,101.611" />
+        </LinearGradientBrush.Transform>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="SpeechLoggingConsentNeckOutlineBrush" Opacity="0"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentHeadFillBrush" Color="{StaticResource SpeechLoggingConsentSkinFillColor}"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentHeadOutlineBrush" Opacity="0"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentMouthFillBrush" Color="{StaticResource SpeechLoggingConsentMouthFillColor}"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentEyeFillBrush" Color="{StaticResource SpeechLoggingConsentEyeFillColor}"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentEarringFillBrush" Color="{StaticResource SpeechLoggingConsentBookAndEarringFillColor}"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentBookSideFillBrush" Color="{StaticResource SpeechLoggingConsentBookAndEarringFillColor}"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentBookSideOutlineBrush" Opacity="0"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentBookFrontFillBrush" Color="{StaticResource SpeechLoggingConsentBookFrontFillColor}"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentBookFrontOutlineBrush" Opacity="0"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentArmRightFillBrush" Color="{StaticResource SpeechLoggingConsentClothFillColor}"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentArmRightOutlineBrush" Opacity="0"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentHandRightFillBrush" Color="{StaticResource SpeechLoggingConsentHandFillColor}"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentHandrightOutlineBrush" Opacity="0"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentStarFillBrush" Color="{StaticResource SpeechLoggingConsentClothFillShadowColor}"/>
+    <SolidColorBrush x:Key="SpeechLoggingConsentStarOutlineBrush" Opacity="0"/>
+
+</ResourceDictionary>

@@ -1,0 +1,69 @@
+﻿<ResourceDictionary
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Styles/Brushes.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--Color Palette-->
+    <Color x:Key="AltHigh">White</Color>
+    <Color x:Key="AltAltHigh">#222222</Color>
+    <Color x:Key="AltHighTransparent">Transparent</Color>
+    <Color x:Key="AltMediumHigh">#F2F2F2</Color>
+    <Color x:Key="AltMedium">#737373</Color>
+    <Color x:Key="AltAltMedium">#D2D2D2</Color>
+    <Color x:Key="AltMediumDark">#E6E6E6</Color>
+    <Color x:Key="AltMediumLow">#E6E6E6</Color>
+    <Color x:Key="AltLow">Transparent</Color>
+    <Color x:Key="AltAltLow">White</Color>
+
+    <Color x:Key="BaseHigh">Black</Color>
+    <Color x:Key="BaseAltHigh">#2F2F2F</Color>
+    <Color x:Key="BaseHighTransparent">#00000000</Color>
+    <Color x:Key="BaseMediumHigh">#252424</Color>
+    <Color x:Key="BaseMedium">#2F2F2F</Color>
+    <Color x:Key="BaseAltMedium">#737373</Color>
+    <Color x:Key="BaseMediumLow">#737373</Color>
+    <Color x:Key="BaseLow">#D2D2D2</Color>
+    <Color x:Key="BaseAltLow">#D2D2D2</Color>
+
+    <Color x:Key="ChromeHigh">#FFFFFF</Color>
+    <Color x:Key="ChromeAltHigh">#949494</Color>
+    <Color x:Key="ChromeMediumHigh">#E6E6E6</Color>
+    <Color x:Key="ChromeMedium">#F2F2F2</Color>
+    <Color x:Key="ChromeMediumTransparent">#00F2F2F2</Color>
+    <Color x:Key="ChromeAltMedium">#737373</Color>
+    <Color x:Key="ChromeMediumDark">White</Color>
+    <Color x:Key="ChromeMediumLow">#E6E6E6</Color>
+    <Color x:Key="ChromeLow">#F2F2F2</Color>
+    <Color x:Key="ChromeAltLow">#2F2F2F</Color>
+
+    <Color x:Key="CortanaAccent">#00AEEF</Color>
+    <Color x:Key="CortanaAccentLow">#0078D7</Color>
+
+    <Color x:Key="ErrorHigh">#D83B01</Color>
+    <Color x:Key="ErrorMedium">#FFB900</Color>
+    <Color x:Key="ErrorInformative">#0078D4</Color>
+
+    <Color x:Key="ErrorImageExclamationColor">#F7B647</Color>
+    <Color x:Key="ErrorImageExclamationGreyscaleColor">#FFFFFF</Color>
+    <Color x:Key="ErrorImageTriangleColor">#FFD590</Color>
+    <Color x:Key="ErrorImageTriangleGreyscaleColor">#C8C6C4</Color>
+    <Color x:Key="ErrorImageMotionLinesColor">#E1DFDD</Color>
+
+    <!-- Colors for Speech logging consent image-->
+    <Color x:Key="SpeechLoggingConsentCircleFillColor">#FFCBEEFB</Color>
+    <Color x:Key="SpeechLoggingConsentHandFillColor">#FFBE8E67</Color>
+    <Color x:Key="SpeechLoggingConsentClothFillShadowColor">#FFF6B446</Color>
+    <Color x:Key="SpeechLoggingConsentClothFillLightShadowColor">#FFFAC46B</Color>
+    <Color x:Key="SpeechLoggingConsentClothFillColor">#FFFFD48F</Color>
+    <Color x:Key="SpeechLoggingConsentHairFillColor">#FF312F2B</Color>
+    <Color x:Key="SpeechLoggingConsenNeckShadowFillColor">#FF956541</Color>
+    <Color x:Key="SpeechLoggingConsentSkinFillColor">#FFBC8D66</Color>
+    <Color x:Key="SpeechLoggingConsentMouthFillColor">#FF9A623B</Color>
+    <Color x:Key="SpeechLoggingConsentEyeFillColor">#FF39302D</Color>
+    <Color x:Key="SpeechLoggingConsentBookAndEarringFillColor">#FFE0DEDC</Color>
+    <Color x:Key="SpeechLoggingConsentBookFrontFillColor">#FFC7C5C3</Color>
+
+</ResourceDictionary>
