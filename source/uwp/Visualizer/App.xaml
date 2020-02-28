@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:AdaptiveCardVisualizer"
     RequestedTheme="Light"
-    xmlns:converters="using:AdaptiveCardVisualizer.Converters">
+    xmlns:converters="using:AdaptiveCardVisualizer.Converters"
+    xmlns:Styles="using:AdaptiveCardVisualizer.Styles">
 
     <Application.Resources>
         <converters:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
@@ -14,9 +15,45 @@
             <Setter Property="Padding" Value="0"/>
         </Style>
 
+        <Style TargetType="Styles:DropShadowPanel">
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="ShadowOpacity" Value="0.15"/>
+            <Setter Property="ObjectHeight" Value="1"/>
+            <Setter Property="LightDiffusion" Value="15"/>
+            <Setter Property="ShadowMaskingEnabled" Value="True"/>
+            <Setter Property="LightAngleX" Value="90"/>
+            <Setter Property="LightAngleY" Value="77"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Styles:DropShadowPanel">
+                        <Grid
+                        Name="PART_RootGrid"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                            <Border
+                            x:Name="PART_ShadowElement"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            <ContentPresenter
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <ResourceDictionary x:Name="Resource">
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary Source="ms-appx:///Styles/LightMode.xaml" x:Key="Light"/>
+                <ResourceDictionary Source="ms-appx:///Styles/DarkMode.xaml" x:Key="Dark"/>
             </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
 

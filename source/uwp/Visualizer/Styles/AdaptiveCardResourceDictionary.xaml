@@ -1,11 +1,174 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:i="using:Microsoft.Xaml.Interactivity">
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:Styles="using:AdaptiveCardVisualizer.Styles">
+    
+    <!-- Destructive Buttons -->
+    <Style x:Key="Adaptive.Action.Destructive" TargetType="Button">
+        <Setter Property="Background" Value="{ThemeResource DestructiveButtonBackgroundBrush}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="{StaticResource DefaultFontWeight}"/>
+        <Setter Property="Foreground" Value="{ThemeResource DestructiveButtonForegroundBrush}"/>
+        <Setter Property="HighContrastAdjustment" Value="None"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="UseSystemFocusVisuals" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Target="OuterBorderElement.BorderBrush" Value="{ThemeResource DestructiveButtonBackgroundPointerOverBrush}" />
+                                        <Setter Target="ContentPresenter.Background" Value="{ThemeResource DestructiveButtonBackgroundPointerOverBrush}"/>
+                                        <Setter Target="ContentPresenter.BorderBrush" Value="{ThemeResource DestructiveButtonBackgroundPointerOverBrush}"/>
+                                        <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource DestructiveButtonForegroundFocusedBrush}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Target="OuterBorderElement.BorderBrush" Value="{ThemeResource DestructiveButtonBackgroundPressedBrush}" />
+                                        <Setter Target="ContentPresenter.Background" Value="{ThemeResource DestructiveButtonBackgroundPressedBrush}"/>
+                                        <Setter Target="ContentPresenter.BorderBrush" Value="{ThemeResource DestructiveButtonBackgroundPressedBrush}"/>
+                                        <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource DestructiveButtonForegroundFocusedBrush}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Focused">
+                                    <VisualState.Setters>
+                                        <Setter Target="OuterBorderElement.BorderBrush" Value="{ThemeResource FocusOutlineOuterBorderBrush}" />
+                                        <Setter Target="ContentPresenter.BorderBrush" Value="{ThemeResource FocusOutlineInnerBorderBrush}" />
+                                        <Setter Target="ContentPresenter.Background" Value="{ThemeResource DestructiveButtonBackgroundFocusedBrush}" />
+                                        <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource DestructiveButtonForegroundFocusedBrush}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <VisualState.Setters>
+                                        <Setter Target="OuterBorderElement.BorderBrush" Value="{ThemeResource DestructiveButtonBorderDisabledBrush}"/>
+                                        <Setter Target="OuterBorderElement.Background" Value="{ThemeResource DestructiveButtonBackgroundDisabledBrush}"/>
+                                        <Setter Target="ContentPresenter.Background" Value="{ThemeResource DestructiveButtonBackgroundDisabledBrush}"/>
+                                        <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource DestructiveButtonForegroundDisabledBrush}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border
+                            x:Name="OuterBorderElement"
+                            CornerRadius="4"
+                            BorderBrush="{ThemeResource DestructiveButtonBorderBrush}"
+                            Background="{ThemeResource DestructiveButtonBackgroundBrush}"
+                            BorderThickness="2">
+                            <ContentPresenter
+                                x:Name="ContentPresenter"
+                                AutomationProperties.AccessibilityView="Raw"
+                                Background="{TemplateBinding Background}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                ContentTransitions="{TemplateBinding ContentTransitions}"
+                                BorderBrush="{ThemeResource FocusOutlineBorderUnfocusedBrush}"
+                                BorderThickness="2"
+                                FontSize="{TemplateBinding FontSize}"
+                                HorizontalContentAlignment="Center"
+                                Padding="8,1,8,4"
+                                TextWrapping="WrapWholeWords"
+                                VerticalContentAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Primary Buttons -->
+    <Style x:Key="Adaptive.Action.Positive" TargetType="Button">
+        <Setter Property="Background" Value="{ThemeResource PrimaryButtonBackgroundBrush}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Foreground" Value="{ThemeResource PrimaryButtonForegroundBrush}"/>
+        <Setter Property="HighContrastAdjustment" Value="None"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="UseSystemFocusVisuals" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Target="OuterBorderElement.BorderBrush" Value="{ThemeResource PrimaryButtonBackgroundPointerOverBrush}" />
+                                        <Setter Target="ContentPresenter.Background" Value="{ThemeResource PrimaryButtonBackgroundPointerOverBrush}"/>
+                                        <Setter Target="ContentPresenter.BorderBrush" Value="{ThemeResource PrimaryButtonBackgroundPointerOverBrush}"/>
+                                        <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource PrimaryButtonForegroundFocusedBrush}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Target="OuterBorderElement.BorderBrush" Value="{ThemeResource PrimaryButtonBackgroundPressedBrush}" />
+                                        <Setter Target="ContentPresenter.Background" Value="{ThemeResource PrimaryButtonBackgroundPressedBrush}"/>
+                                        <Setter Target="ContentPresenter.BorderBrush" Value="{ThemeResource PrimaryButtonBackgroundPressedBrush}"/>
+                                        <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource PrimaryButtonForegroundFocusedBrush}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Focused">
+                                    <VisualState.Setters>
+                                        <Setter Target="OuterBorderElement.BorderBrush" Value="{ThemeResource FocusOutlineOuterBorderBrush}" />
+                                        <Setter Target="ContentPresenter.BorderBrush" Value="{ThemeResource FocusOutlineInnerBorderBrush}" />
+                                        <Setter Target="ContentPresenter.Background" Value="{ThemeResource PrimaryButtonBackgroundFocusedBrush}" />
+                                        <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource PrimaryButtonForegroundFocusedBrush}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <VisualState.Setters>
+                                        <Setter Target="OuterBorderElement.BorderBrush" Value="{ThemeResource PrimaryButtonBorderDisabledBrush}"/>
+                                        <Setter Target="OuterBorderElement.Background" Value="{ThemeResource PrimaryButtonBackgroundDisabledBrush}"/>
+                                        <Setter Target="ContentPresenter.Background" Value="{ThemeResource PrimaryButtonBackgroundDisabledBrush}"/>
+                                        <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource PrimaryButtonForegroundDisabledBrush}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border
+                            x:Name="OuterBorderElement"
+                            CornerRadius="4"
+                            BorderBrush="{ThemeResource PrimaryButtonBorderBrush}"
+                            Background="{ThemeResource PrimaryButtonBackgroundBrush}"
+                            BorderThickness="2">
+                            <ContentPresenter
+                                x:Name="ContentPresenter"
+                                AutomationProperties.AccessibilityView="Raw"
+                                Background="{TemplateBinding Background}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                ContentTransitions="{TemplateBinding ContentTransitions}"
+                                BorderBrush="{ThemeResource FocusOutlineBorderUnfocusedBrush}"
+                                BorderThickness="2"
+                                FontSize="{TemplateBinding FontSize}"
+                                HorizontalContentAlignment="Center"
+                                Padding="8,1,8,4"
+                                TextWrapping="WrapWholeWords"
+                                VerticalContentAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style x:Key="Adaptive.Action" TargetType="Button">
         <Setter Property="Background" Value="{ThemeResource SecondaryButtonBackgroundBrush}"/>
-        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontSize" Value="16"/>
         <Setter Property="FontWeight" Value="Normal"/>
         <Setter Property="Foreground" Value="{ThemeResource SecondaryButtonForegroundBrush}"/>
         <Setter Property="HighContrastAdjustment" Value="None"/>
@@ -273,6 +436,7 @@
 
     <x:Double x:Key="DefaultFontSize">14</x:Double>
     <x:String x:Key="CalendarGlyph">&#xE787;</x:String>
+    <x:String x:Key="DefaultFontWeight">Normal</x:String>
 
     <Style x:Key="Adaptive.Input.Time" TargetType="TimePicker">
         <Setter Property="IsTabStop" Value="False"/>
@@ -1087,6 +1251,21 @@
 
     <x:String x:Key="CheckMarkGlyph">&#xE73E;</x:String>
 
+    <SolidColorBrush x:Key="DestructiveButtonForegroundBrush" Color="{StaticResource AltLight}"/>
+    <SolidColorBrush x:Key="DestructiveButtonForegroundFocusedBrush" Color="{StaticResource AltLight}"/>
+    <SolidColorBrush x:Key="DestructiveButtonForegroundDisabledBrush" Color="{StaticResource BaseAltMedium}"/>
+    <SolidColorBrush x:Key="DestructiveButtonBackgroundBrush" Color="{StaticResource RedHigh}"/>
+    <SolidColorBrush x:Key="DestructiveButtonBackgroundPointerOverBrush" Color="{StaticResource RedMedium}"/>
+    <SolidColorBrush x:Key="DestructiveButtonBackgroundPressedBrush" Color="{StaticResource BaseAltMedium}"/>
+    <SolidColorBrush x:Key="DestructiveButtonBackgroundDisabledBrush" Color="{StaticResource BaseLow}"/>
+    <SolidColorBrush x:Key="DestructiveButtonBackgroundFocusedBrush" Color="{StaticResource RedHigh}"/>
+    <SolidColorBrush x:Key="DestructiveButtonBorderDisabledBrush" Color="{StaticResource BaseLow}"/>
+    <SolidColorBrush x:Key="DestructiveButtonBorderBrush" Color="{StaticResource RedHigh}"/>
+
+    <Color x:Key="RedHigh">#D83B01</Color>
+    <Color x:Key="RedMedium">#C23501</Color>
+    <Color x:Key="AltLight">White</Color>
+
     <!--Global Brushes-->
         <SolidColorBrush x:Key="WindowBackgroundBrush" Color="{StaticResource AltHigh}"/>
         <SolidColorBrush x:Key="WindowForegroundBrush" Color="{StaticResource BaseHigh}"/>
@@ -1474,7 +1653,8 @@
     <SolidColorBrush x:Key="SpeechLoggingConsentStarOutlineBrush" Opacity="0"/>
 
     <!--Color Palette-->
-        <Color x:Key="AltHigh">White</Color>
+
+    <Color x:Key="AltHigh">White</Color>
         <Color x:Key="AltAltHigh">#222222</Color>
         <Color x:Key="AltHighTransparent">Transparent</Color>
         <Color x:Key="AltMediumHigh">#F2F2F2</Color>

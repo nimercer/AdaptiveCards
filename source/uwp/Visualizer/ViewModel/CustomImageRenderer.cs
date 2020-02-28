@@ -15,7 +15,9 @@ namespace AdaptiveCardVisualizer.ViewModel
     using AdaptiveCards.Rendering.Uwp;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Media;
     using Windows.UI.Xaml.Media.Imaging;
+    using Windows.UI.Xaml.Shapes;
 
     /// <summary>
     /// Custom adaptive cards image renderer which can handle SVGs.
@@ -49,6 +51,11 @@ namespace AdaptiveCardVisualizer.ViewModel
         {   
             // Create rendered element using the underlying renderer.
             var uielement = this.baseRenderer.Render(element, context, renderArgs);
+
+            if (uielement is Ellipse)
+            {
+                return uielement;
+            }
             
             // Get the XAML Image component in question.
             // Sometimes we're actually dealing with a Button with an Image as its Content so check for that if necessary.
@@ -58,6 +65,24 @@ namespace AdaptiveCardVisualizer.ViewModel
                 var buttonElement = uielement as Button;
                 image = buttonElement?.Content as Image;
             }
+
+            //if (image == null)
+            //{
+            //    var ellipseElement = uielement as Ellipse;
+
+            //    if (ellipseElement != null)
+            //    {
+            //        var imageBrush = ellipseElement?.Fill as ImageBrush;
+
+            //        if (imageBrush != null)
+            //        {
+            //            imageBrush.ImageFailed += ImageFailed;
+            //            imageBrush.ImageOpened += ImageOpened;
+            //        }
+
+            //        return ellipseElement;
+            //    }
+            //}
 
             var adaptiveImage = element as AdaptiveImage;
 

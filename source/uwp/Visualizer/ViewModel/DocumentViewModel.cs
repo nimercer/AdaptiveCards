@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Controls;
 using AdaptiveCardVisualizer.Helpers;
 using AdaptiveCardVisualizer.ResourceResolvers;
 using Windows.UI.Xaml.Media;
+using Newtonsoft.Json.Linq;
 
 namespace AdaptiveCardVisualizer.ViewModel
 {
@@ -24,6 +25,7 @@ namespace AdaptiveCardVisualizer.ViewModel
     {
         private static AdaptiveCardRenderer _renderer;
         private const string AdaptiveCardResourceDictionaryFilePath = "ms-appx:///Styles/AdaptiveCardResourceDictionary.xaml";
+        private string altText = "";
        
         private DocumentViewModel(MainPageViewModel mainPageViewModel) : base(mainPageViewModel) { }
 
@@ -33,6 +35,15 @@ namespace AdaptiveCardVisualizer.ViewModel
         {
             get { return _renderedCard; }
             private set { SetProperty(ref _renderedCard, value); }
+        }
+
+        public string AltText
+        {
+            get
+            {
+                return this.altText;
+            }
+            private set { SetProperty(ref altText, value); }
         }
 
         public static async Task<DocumentViewModel> LoadFromFileAsync(MainPageViewModel mainPageViewModel, IStorageFile file, string token)
@@ -83,6 +94,10 @@ namespace AdaptiveCardVisualizer.ViewModel
                 if (JsonObject.TryParse(payload, out jsonObject))
                 {
                     AdaptiveCardParseResult parseResult = AdaptiveCard.FromJson(jsonObject);
+
+                    var json = JToken.Parse(jsonObject.ToString());
+
+                    AltText = json?.SelectToken("speak")?.ToString();
 
                     _renderedAdaptiveCard = _renderer.RenderAdaptiveCard(parseResult.AdaptiveCard);
                     if (_renderedAdaptiveCard.FrameworkElement != null)

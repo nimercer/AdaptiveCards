@@ -12,9 +12,9 @@
 		"lineColor": "#E6E6E6"
 	},
 	"imageSizes": {
-		"small": 25,
-		"medium": 40,
-		"large": 80
+		"small": 32,
+		"medium": 48,
+		"large": 96
 	},
 	"fontTypes": {
 		"default": {
@@ -62,200 +62,200 @@
 	},
 	"containerStyles": {
 		"default": {
+			"backgroundColor": "#ffffff",
 			"foregroundColors": {
 				"default": {
-					"default": "#1f1f1f",
-					"subtle": "#b31f1f1f"
+					"default": "#000000",
+					"subtle": "#737373"
 				},
 				"dark": {
 					"default": "#000000",
-					"subtle": "#3e000000"
+					"subtle": "#737373"
 				},
 				"light": {
 					"default": "#ffffff",
-					"subtle": "#3fffffff"
+					"subtle": "#D2D2D2"
 				},
 				"accent": {
-					"default": "#0078d4",
-					"subtle": "#3e00aeef"
+					"default": "#0078D4",
+					"subtle": "#0063AD"
 				},
 				"good": {
-					"default": "#92c353",
-					"subtle": "#e592c353"
+					"default": "#1FAA4F",
+					"subtle": "#086726"
 				},
 				"warning": {
-					"default": "#f8d22a",
-					"subtle": "#e5f8d22a"
+					"default": "#D78000",
+					"subtle": "#6E5407"
 				},
 				"attention": {
-					"default": "#c4314b",
-					"subtle": "#e5c4314b"
+					"default": "#D83B00",
+					"subtle": "#A81E22"
 				}
-			},
-			"backgroundColor": "#ffffff"
+			}
 		},
 		"emphasis": {
+			"backgroundColor": "#F2F2F2",
 			"foregroundColors": {
 				"default": {
-					"default": "#1f1f1f",
-					"subtle": "#b31f1f1f"
+					"default": "#000000",
+					"subtle": "#737373"
 				},
 				"dark": {
 					"default": "#000000",
-					"subtle": "#3e000000"
+					"subtle": "#737373"
 				},
 				"light": {
 					"default": "#ffffff",
-					"subtle": "#3fffffff"
+					"subtle": "#D2D2D2"
 				},
 				"accent": {
-					"default": "#0078d4",
-					"subtle": "#3e00aeef"
+					"default": "#0078D4",
+					"subtle": "#0063AD"
 				},
 				"good": {
-					"default": "#92c353",
-					"subtle": "#e592c353"
+					"default": "#1C9B49",
+					"subtle": "#086726"
 				},
 				"warning": {
-					"default": "#f8d22a",
-					"subtle": "#e5f8d22a"
+					"default": "#C77700",
+					"subtle": "#6E5407"
 				},
 				"attention": {
-					"default": "#c4314b",
-					"subtle": "#e5c4314b"
+					"default": "#D83B00",
+					"subtle": "#A81E22"
 				}
-			},
-			"backgroundColor": "#D2D2D2"
+			}
 		},
 		"accent": {
-			"backgroundColor": "#C7DEF9",
+			"backgroundColor": "#E5F1FA",
 			"foregroundColors": {
 				"default": {
-					"default": "#1f1f1f",
-					"subtle": "#b31f1f1f"
+					"default": "#000000",
+					"subtle": "#737373"
 				},
 				"dark": {
 					"default": "#000000",
-					"subtle": "#3e000000"
+					"subtle": "#737373"
 				},
 				"light": {
 					"default": "#ffffff",
-					"subtle": "#3fffffff"
+					"subtle": "#D2D2D2"
 				},
 				"accent": {
-					"default": "#0078d4",
-					"subtle": "#3e00aeef"
+					"default": "#0078D4",
+					"subtle": "#0063AD"
 				},
 				"good": {
-					"default": "#92c353",
-					"subtle": "#e592c353"
+					"default": "#1C9B49",
+					"subtle": "#086726"
 				},
 				"warning": {
-					"default": "#f8d22a",
-					"subtle": "#e5f8d22a"
+					"default": "#C77700",
+					"subtle": "#6E5407"
 				},
 				"attention": {
-					"default": "#c4314b",
-					"subtle": "#e5c4314b"
+					"default": "#D83B00",
+					"subtle": "#A81E22"
 				}
 			}
 		},
 		"good": {
-			"backgroundColor": "#CCFFCC",
+			"backgroundColor": "#1FAA4F",
 			"foregroundColors": {
 				"default": {
-					"default": "#1f1f1f",
-					"subtle": "#b31f1f1f"
+					"default": "#FFFFFF",
+					"subtle": "#AAE9C0"
 				},
 				"dark": {
 					"default": "#000000",
-					"subtle": "#3e000000"
+					"subtle": "#086726"
 				},
 				"light": {
 					"default": "#ffffff",
-					"subtle": "#3fffffff"
+					"subtle": "#AAE9C0"
 				},
 				"accent": {
-					"default": "#0078d4",
-					"subtle": "#3e00aeef"
+					"default": "#0078D4",
+					"subtle": "#0063AD"
 				},
 				"good": {
-					"default": "#92c353",
-					"subtle": "#e592c353"
+					"default": "#1FAA4F",
+					"subtle": "#086726"
 				},
 				"warning": {
-					"default": "#f8d22a",
-					"subtle": "#e5f8d22a"
+					"default": "#D78000",
+					"subtle": "#6E5407"
 				},
 				"attention": {
-					"default": "#c4314b",
-					"subtle": "#e5c4314b"
+					"default": "#D83B00",
+					"subtle": "#A81E22"
 				}
 			}
 		},
 		"attention": {
-			"backgroundColor": "#FFC5B2",
+			"backgroundColor": "#D83B00",
 			"foregroundColors": {
 				"default": {
-					"default": "#1f1f1f",
-					"subtle": "#b31f1f1f"
+					"default": "#FFFFFF",
+					"subtle": "#F6C7B6"
 				},
 				"dark": {
 					"default": "#000000",
-					"subtle": "#3e000000"
+					"subtle": "#7D2200"
 				},
 				"light": {
 					"default": "#ffffff",
-					"subtle": "#3fffffff"
+					"subtle": "#F6C7B6"
 				},
 				"accent": {
-					"default": "#0078d4",
-					"subtle": "#3e00aeef"
+					"default": "#0078D4",
+					"subtle": "#0063AD"
 				},
 				"good": {
-					"default": "#92c353",
-					"subtle": "#e592c353"
+					"default": "#1FAA4F",
+					"subtle": "#086726"
 				},
 				"warning": {
-					"default": "#f8d22a",
-					"subtle": "#e5f8d22a"
+					"default": "#D78000",
+					"subtle": "#6E5407"
 				},
 				"attention": {
-					"default": "#c4314b",
-					"subtle": "#e5c4314b"
+					"default": "#D83B00",
+					"subtle": "#A81E22"
 				}
 			}
 		},
 		"warning": {
-			"backgroundColor": "#FFE2B2",
+			"backgroundColor": "#FFD300",
 			"foregroundColors": {
 				"default": {
-					"default": "#1f1f1f",
-					"subtle": "#b31f1f1f"
+					"default": "#000000",
+					"subtle": "#6E5407"
 				},
 				"dark": {
 					"default": "#000000",
-					"subtle": "#3e000000"
+					"subtle": "#6E5407"
 				},
 				"light": {
 					"default": "#ffffff",
-					"subtle": "#3fffffff"
+					"subtle": "#FFF4BE"
 				},
 				"accent": {
-					"default": "#0078d4",
-					"subtle": "#3e00aeef"
+					"default": "#0078D4",
+					"subtle": "#0063AD"
 				},
 				"good": {
-					"default": "#92c353",
-					"subtle": "#e592c353"
+					"default": "#1FAA4F",
+					"subtle": "#086726"
 				},
 				"warning": {
-					"default": "#f8d22a",
-					"subtle": "#e5f8d22a"
+					"default": "#D78000",
+					"subtle": "#6E5407"
 				},
 				"attention": {
-					"default": "#c4314b",
-					"subtle": "#e5c4314b"
+					"default": "#D83B00",
+					"subtle": "#A81E22"
 				}
 			}
 		}
@@ -272,7 +272,8 @@
 		"preExpandSingleShowCardAction": false,
 		"actionsOrientation": "Horizontal",
 		"actionAlignment": "Stretch",
-		"iconSize": 50
+		"iconSize": 20,
+		"iconPlacement": "leftOfTitle"
 	},
 	"imageSet": {
 		"imageSize": "Medium",
@@ -292,7 +293,7 @@
 			"color": "Default",
 			"isSubtle": false,
 			"weight": "Default",
-			"warp": true
+			"wrap": true
 		},
 		"spacing": 12
 	}
