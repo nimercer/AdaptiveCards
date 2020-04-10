@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:Styles="using:AdaptiveCardVisualizer.Styles">
-    
+
     <!-- Destructive Buttons -->
     <Style x:Key="Adaptive.Action.Destructive" TargetType="Button">
         <Setter Property="Background" Value="{ThemeResource DestructiveButtonBackgroundBrush}"/>
@@ -1251,7 +1251,7 @@
 
     <x:String x:Key="CheckMarkGlyph">&#xE73E;</x:String>
 
-    <SolidColorBrush x:Key="DestructiveButtonForegroundBrush" Color="{StaticResource AltLight}"/>
+    <!--<SolidColorBrush x:Key="DestructiveButtonForegroundBrush" Color="{StaticResource AltLight}"/>
     <SolidColorBrush x:Key="DestructiveButtonForegroundFocusedBrush" Color="{StaticResource AltLight}"/>
     <SolidColorBrush x:Key="DestructiveButtonForegroundDisabledBrush" Color="{StaticResource BaseAltMedium}"/>
     <SolidColorBrush x:Key="DestructiveButtonBackgroundBrush" Color="{StaticResource RedHigh}"/>
@@ -1266,7 +1266,7 @@
     <Color x:Key="RedMedium">#C23501</Color>
     <Color x:Key="AltLight">White</Color>
 
-    <!--Global Brushes-->
+    --><!--Global Brushes--><!--
         <SolidColorBrush x:Key="WindowBackgroundBrush" Color="{StaticResource AltHigh}"/>
         <SolidColorBrush x:Key="WindowForegroundBrush" Color="{StaticResource BaseHigh}"/>
         <SolidColorBrush x:Key="RootGridBackgroundBrush" Color="Transparent"/>
@@ -1302,7 +1302,7 @@
             <GradientStop Color="{StaticResource AltHighTransparent}" Offset="1" />
         </LinearGradientBrush>
 
-        <!--Shared Components-->
+        --><!--Shared Components--><!--
         <SolidColorBrush x:Key="PrimaryButtonForegroundBrush" Color="{StaticResource AltHigh}"/>
         <SolidColorBrush x:Key="PrimaryButtonForegroundFocusedBrush" Color="{StaticResource AltHigh}"/>
         <SolidColorBrush x:Key="PrimaryButtonForegroundDisabledBrush" Color="{StaticResource AltMedium}"/>
@@ -1339,7 +1339,7 @@
         <SolidColorBrush x:Key="RadioButtonCheckedOuterEllipseStrokeBrush" Color="{StaticResource BaseMediumHigh}"/>
         <SolidColorBrush x:Key="RadioButtonCheckGlyphFillBrush" Color="{StaticResource BaseMediumHigh}"/>
 
-        <!--User input button-->
+        --><!--User input button--><!--
         <SolidColorBrush x:Key="UserInputButtonBorderBrush" Color="Transparent"/>
         <SolidColorBrush x:Key="UserInputButtonBackgroundBrush" Color="{StaticResource AltHigh}"/>
         <SolidColorBrush x:Key="UserInputButtonBackgroundPointerOverBrush" Color="{StaticResource AltMediumDark}"/>
@@ -1351,7 +1351,7 @@
         <SolidColorBrush x:Key="UserInputButtonForegroundPressedBrush" Color="{StaticResource BaseHigh}"/>
         <SolidColorBrush x:Key="UserInputButtonForegroundDisabledBrush" Color="{StaticResource BaseHigh}" Opacity="0.4"/>
 
-        <!--Input text box-->
+        --><!--Input text box--><!--
         <SolidColorBrush x:Key="UserInputRectanglePointerOverBrush" Color="{StaticResource BaseLow}"/>
 
         <SolidColorBrush x:Key="UserInputTextBoxBorderPointerOverBrush" Color="Transparent"/>
@@ -1371,7 +1371,7 @@
             <GradientStop Color="{StaticResource AltHigh}" Offset="1" />
         </LinearGradientBrush>
 
-        <!--User and Cortana conversation message-->
+        --><!--User and Cortana conversation message--><!--
         <SolidColorBrush x:Key="UserTextBlockBorderBrush" Color="Transparent"/>
         <SolidColorBrush x:Key="UserTextBlockBorderPointerOverBrush" Color="Transparent"/>
         <SolidColorBrush x:Key="UserTextBlockBorderDisabledBrush" Color="{StaticResource ChromeLow}" Opacity="0.8"/>
@@ -1397,7 +1397,7 @@
         <SolidColorBrush x:Key="TextTextBlockForegroundBrush" Color="{StaticResource BaseHigh}"/>
         <SolidColorBrush x:Key="TextTextBlockForegroundBrushDisabled" Color="{StaticResource BaseHigh}" Opacity="0.4"/>
 
-        <!--Adaptive card-->
+        --><!--Adaptive card--><!--
         <Color x:Key="DropShadowPanelColor">Black</Color>
         <SolidColorBrush x:Key="AdaptiveCardControlBorderBrush" Color="{StaticResource AltHigh}"/>
         <SolidColorBrush x:Key="AdaptiveCardControlBackgroundBrush" Color="{StaticResource AltHigh}"/>
@@ -1406,21 +1406,21 @@
         <SolidColorBrush x:Key="AdaptiveCardAttributionBackgroundPointerOverBrush" Color="{StaticResource ChromeLow}"/>
         <SolidColorBrush x:Key="AdaptiveCardAttributionForegroundBrush" Color="{StaticResource BaseHigh}"/>
 
-        <!-- Listening Icon -->
+        --><!-- Listening Icon --><!--
         <SolidColorBrush x:Key="ListeningIconForegroundBrush" Color="{StaticResource BaseHigh}"/>
         <SolidColorBrush x:Key="ListeningIconBackgroundBrush" Color="{StaticResource BaseHighTransparent}" />
 
-        <!--Debug-->
+        --><!--Debug--><!--
         <SolidColorBrush x:Key="DebugButtonBackgroundBrush" Color="{StaticResource AltHigh}"/>
         <SolidColorBrush x:Key="DebugButtonForegroundBrush" Color="{StaticResource BaseHigh}" Opacity="0.5"/>
 
-        <!--AuthWebView-->
+        --><!--AuthWebView--><!--
         <Color x:Key="DefaultWebViewBackgroundColor">Black</Color>
         <SolidColorBrush x:Key="AuthWebViewRetryButtonBackgroundBrush" Color="{StaticResource ChromeMediumDark}"/>
         <SolidColorBrush x:Key="AuthWebViewRetryButtonForegroundBrush" Color="{StaticResource BaseHigh}"/>
         <SolidColorBrush x:Key="AuthWebViewRetryButtonSecondaryForegroundBrush" Color="{StaticResource BaseMedium}"/>
 
-        <!-- Main Menu -->
+        --><!-- Main Menu --><!--
         <SolidColorBrush x:Key="MenuPointerOverBackgroundBrush" Color="{StaticResource AltMediumDark}" />
         <SolidColorBrush x:Key="MenuPointerOverForegroundBrush" Color="{StaticResource BaseHigh}" />
         <SolidColorBrush x:Key="MenuPointerPressedBackgroundBrush" Color="{StaticResource ChromeAltHigh}" />
@@ -1429,7 +1429,7 @@
         <SolidColorBrush x:Key="MenuBorderBrush" Color="{StaticResource ChromeHigh}" />
         <SolidColorBrush x:Key="MenuSubTextForegroundBrush" Color="{StaticResource BaseAltMedium}" />
 
-        <!--Settings Menu-->
+        --><!--Settings Menu--><!--
         <SolidColorBrush x:Key="SettingsMenuBorderBrush" Color="{StaticResource AltMediumHigh}" />
         <SolidColorBrush x:Key="SettingsMenuPointerOverBorderBrush" Color="{StaticResource ChromeAltHigh}" />
         <SolidColorBrush x:Key="SettingsMenuPressedBorderBrush" Color="{StaticResource BaseAltMedium}" />
@@ -1446,13 +1446,13 @@
         <SolidColorBrush x:Key="SettingsMenuPressedForegroundBrush" Color="{StaticResource ChromeHigh}" />
         <SolidColorBrush x:Key="SettingsMenuDisabledForgroundBrush" Color="{StaticResource BaseAltMedium}" />
 
-        <!-- About Page -->
+        --><!-- About Page --><!--
         <SolidColorBrush x:Key="DividerBorderBrush" Color="{StaticResource ChromeMediumLow}" />
         <SolidColorBrush x:Key="AadUpsellBackgroundBrush" Color="{StaticResource ChromeMedium}" />
         <SolidColorBrush x:Key="UpdatesTextBrush" Color="{StaticResource BaseAltMedium}"/>
         <SolidColorBrush x:Key="CheckingForUpdatesProgressRingBrush" Color="{StaticResource BaseHigh}"/>
 
-        <!--People Picker-->
+        --><!--People Picker--><!--
         <SolidColorBrush x:Key="PersonTileBorderBrush" Color="{StaticResource AltMediumLow}"/>
         <SolidColorBrush x:Key="PersonTileHCBorderBrush" Color="Transparent"/>
         <SolidColorBrush x:Key="DeletePersonButtonBackgroundBrush" Color="Transparent"/>
@@ -1461,7 +1461,7 @@
         <SolidColorBrush x:Key="PersonTileBackgroundBrush" Color="{StaticResource ChromeHigh}"/>
         <SolidColorBrush x:Key="SearchBoxBackgroundBrush" Color="{StaticResource AltHigh}" Opacity="0.4"/>
 
-        <!--Error Banners-->
+        --><!--Error Banners--><!--
         <SolidColorBrush x:Key="ErrorBannerBackgroundBrush" Color="{StaticResource ChromeHigh}"/>
         <SolidColorBrush x:Key="ErrorBannerPointerOverBorderBrush" Color="{StaticResource AltLow}"/>
         <SolidColorBrush x:Key="ErrorBannerBorderBrushHC" Color="Transparent"/>
@@ -1473,20 +1473,20 @@
         <SolidColorBrush x:Key="ErrorBannerCriticalAccentBrush" Color="{StaticResource ErrorHigh}"/>
         <SolidColorBrush x:Key="ErrorBannerInformativeAccentBrush" Color="{StaticResource ErrorInformative}"/>
 
-        <!--Signed out-->
+        --><!--Signed out--><!--
         <SolidColorBrush x:Key="SignedOutTextBlockForegroundBrush" Color="{StaticResource BaseAltMedium}"/>
 
-        <!--Privacy settings-->
+        --><!--Privacy settings--><!--
         <SolidColorBrush x:Key="PrivacySettingsForegroundBrush" Color="{StaticResource BaseAltMedium}"/>
 
-        <!-- Give Feedback Page -->
+        --><!-- Give Feedback Page --><!--
         <SolidColorBrush x:Key="FeedbackInputTextBoxBorderBrush" Color="{StaticResource BaseHigh}" Opacity="0.05"/>
         <SolidColorBrush x:Key="FeedbackInputTextBoxBackgroundBrush" Color="{StaticResource ChromeLow}"/>
 
-        <!-- Language Pages -->
+        --><!-- Language Pages --><!--
         <SolidColorBrush x:Key="LanguageAltTextForegroundBrush" Color="{StaticResource BaseAltMedium}" />
 
-        <!--Menus-->
+        --><!--Menus--><!--
         <SolidColorBrush x:Key="MenuFlyoutBackgroundBrush" Color="{StaticResource ChromeHigh}"/>
         <SolidColorBrush x:Key="MenuFlyoutItemForegroundBrush" Color="{StaticResource BaseHigh}"/>
         <SolidColorBrush x:Key="MenuFlyoutItemForegroundPointerOverBrush" Color="{StaticResource BaseHigh}"/>
@@ -1496,7 +1496,7 @@
         <SolidColorBrush x:Key="MenuFlyoutItemBackgroundPressedBrush" Color="{StaticResource ChromeMediumHigh}"/>
         <SolidColorBrush x:Key="MenuFlyoutItemIconBackgroundBrush" Color="{StaticResource BaseMediumHigh}"/>
 
-        <!--Adaptive Cards-->
+        --><!--Adaptive Cards--><!--
         <SolidColorBrush x:Key="AdaptiveInputBackgroundBrush" Color="Transparent"/>
         <SolidColorBrush x:Key="AdaptiveInputBackgroundPointerOverBrush" Color="{StaticResource ChromeMediumHigh}"/>
         <SolidColorBrush x:Key="AdaptiveInputBorderBrush" Color="{StaticResource ChromeAltHigh}"/>
@@ -1528,7 +1528,7 @@
         <SolidColorBrush x:Key="AdaptiveTimePickerForegroundFocusedPointerOverBrush" Color="{StaticResource BaseHigh}"/>
         <SolidColorBrush x:Key="AdaptiveTimePickerBackgroundFocusedPointerOverBrush" Color="{StaticResource ChromeMediumHigh}"/>
 
-        <!--SuggestionScrollBar-->
+        --><!--SuggestionScrollBar--><!--
         <SolidColorBrush x:Key="SuggestionButtonPillBorderBrush" Color="Transparent"/>
         <SolidColorBrush x:Key="SuggestionButtonPillBackgroundBrush" Color="{StaticResource ChromeLow}"/>
         <SolidColorBrush x:Key="SuggestionButtonForegroundBrush" Color="{StaticResource BaseMediumHigh}"/>
@@ -1550,16 +1550,16 @@
 
         <SolidColorBrush x:Key="SuggestionBarBackgroundBrush" Color="{StaticResource AltHigh}"/>
 
-        <!--Beta icon-->
+        --><!--Beta icon--><!--
         <SolidColorBrush x:Key="BetaIconBackgroundBrush" Color="{StaticResource ChromeMedium}"/>
         <SolidColorBrush x:Key="BetaIconBorderBrush" Color="{StaticResource ChromeMedium}"/>
 
-        <!--Overriden default colors - DO NOT CHANGE THESE NAMES-->
+        --><!--Overriden default colors - DO NOT CHANGE THESE NAMES-->
 
-        <!--This brush has been overridden for the Time Picker Flyout Presenter. We can't get proper access to override the entire style in the adaptive card so this is a work around.-->
+        <!--This brush has been overridden for the Time Picker Flyout Presenter. We can't get proper access to override the entire style in the adaptive card so this is a work around.--><!--
         <SolidColorBrush x:Key="TimePickerFlyoutPresenterHighlightFill" Color="{StaticResource ChromeMedium}"/>
 
-        <!--These brushes have been overriden for the toggle switch to match the designs without requiring to override the entire style.-->
+        --><!--These brushes have been overriden for the toggle switch to match the designs without requiring to override the entire style.--><!--
         <SolidColorBrush x:Key="ToggleSwitchFillOn" Color="{StaticResource BaseMediumHigh}"/>
         <SolidColorBrush x:Key="ToggleSwitchFillOnPointerOver" Color="{StaticResource BaseAltMedium}"/>
         <SolidColorBrush x:Key="ToggleSwitchFillOnPressed" Color="{StaticResource BaseAltMedium}"/>
@@ -1580,7 +1580,7 @@
         <SolidColorBrush x:Key="ToggleSwitchKnobFillOffPressed" Color="{StaticResource BaseHigh}"/>
         <SolidColorBrush x:Key="ToggleSwitchKnobFillOffDisabled" Color="{StaticResource BaseHigh}"/>
 
-        <!-- Brushes for the error image-->
+        --><!-- Brushes for the error image--><!--
         <SolidColorBrush x:Key="ErrorImageExclamationFillBrush" Color="{StaticResource ErrorImageExclamationColor}"/>
         <SolidColorBrush x:Key="ErrorImageExclamationOutlineBrush" Opacity="0"/>
         <SolidColorBrush x:Key="ErrorImageExclamationGreyscaleFillBrush" Color="{StaticResource ErrorImageExclamationGreyscaleColor}"/>
@@ -1592,7 +1592,7 @@
         <SolidColorBrush x:Key="ErrorImageMotionLinesFillBrush" Color="{StaticResource ErrorImageMotionLinesColor}"/>
         <SolidColorBrush x:Key="ErrorImageMotionLinesOutlineBrush" Opacity="0"/>
 
-        <!-- Brushes for Speech logging consent image-->
+        --><!-- Brushes for Speech logging consent image--><!--
         <SolidColorBrush x:Key="SpeechLoggingConsentCircleFillBrush" Color="{StaticResource SpeechLoggingConsentCircleFillColor}"/>
         <SolidColorBrush x:Key="SpeechLoggingConsentCircleOutlineBrush" Opacity="0"/>
         <SolidColorBrush x:Key="SpeechLoggingConsentHandLeftFillBrush" Color="{StaticResource SpeechLoggingConsentHandFillColor}"/>
@@ -1652,7 +1652,7 @@
         <SolidColorBrush x:Key="SpeechLoggingConsentStarFillBrush" Color="{StaticResource SpeechLoggingConsentClothFillShadowColor}"/>
     <SolidColorBrush x:Key="SpeechLoggingConsentStarOutlineBrush" Opacity="0"/>
 
-    <!--Color Palette-->
+    --><!--Color Palette--><!--
 
     <Color x:Key="AltHigh">White</Color>
         <Color x:Key="AltAltHigh">#222222</Color>
@@ -1699,7 +1699,7 @@
         <Color x:Key="ErrorImageTriangleGreyscaleColor">#C8C6C4</Color>
         <Color x:Key="ErrorImageMotionLinesColor">#E1DFDD</Color>
 
-        <!-- Colors for Speech logging consent image-->
+        --><!-- Colors for Speech logging consent image--><!--
         <Color x:Key="SpeechLoggingConsentCircleFillColor">#FFCBEEFB</Color>
         <Color x:Key="SpeechLoggingConsentHandFillColor">#FFBE8E67</Color>
         <Color x:Key="SpeechLoggingConsentClothFillShadowColor">#FFF6B446</Color>
@@ -1711,6 +1711,6 @@
         <Color x:Key="SpeechLoggingConsentMouthFillColor">#FF9A623B</Color>
         <Color x:Key="SpeechLoggingConsentEyeFillColor">#FF39302D</Color>
         <Color x:Key="SpeechLoggingConsentBookAndEarringFillColor">#FFE0DEDC</Color>
-    <Color x:Key="SpeechLoggingConsentBookFrontFillColor">#FFC7C5C3</Color>
+    <Color x:Key="SpeechLoggingConsentBookFrontFillColor">#FFC7C5C3</Color>-->
     
 </ResourceDictionary>

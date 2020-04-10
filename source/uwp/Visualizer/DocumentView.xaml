@@ -34,7 +34,8 @@
                         <Border
                             x:Name="AdaptiveCardHostContainer"
                             Child="{Binding RenderedCard}"
-                            Padding="0"/>
+                            Padding="0"
+                            CornerRadius="4"/>
                 </Styles:DropShadowPanel>
 
             </ScrollViewer>

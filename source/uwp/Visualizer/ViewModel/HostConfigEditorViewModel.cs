@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using AdaptiveCardVisualizer.Helpers;
+using Windows.UI.Xaml;
 
 namespace AdaptiveCardVisualizer.ViewModel
 {
@@ -56,13 +57,28 @@ namespace AdaptiveCardVisualizer.ViewModel
         {
             try
             {
-                StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///HostConfigs/DefaultHostConfig.json"));
-                string text = await FileIO.ReadTextAsync(file);
+                var isCurrentlyDarkMode = Application.Current.RequestedTheme == ApplicationTheme.Dark;
 
-                return new HostConfigEditorViewModel(mainPageViewModel)
+                if (isCurrentlyDarkMode)
                 {
-                    Payload = text
-                };
+                    StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///HostConfigs/DarkModeHostConfig.json"));
+                    string text = await FileIO.ReadTextAsync(file);
+
+                    return new HostConfigEditorViewModel(mainPageViewModel)
+                    {
+                        Payload = text
+                    };
+                }
+                else
+                {
+                    StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///HostConfigs/DefaultHostConfig.json"));
+                    string text = await FileIO.ReadTextAsync(file);
+
+                    return new HostConfigEditorViewModel(mainPageViewModel)
+                    {
+                        Payload = text
+                    };
+                }
             }
             catch
             {

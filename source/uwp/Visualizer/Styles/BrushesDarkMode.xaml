@@ -434,39 +434,39 @@
     <SolidColorBrush x:Key="SpeechLoggingConsentStarFillBrush" Color="{StaticResource SpeechLoggingConsentClothFillShadowColor}"/>
     <SolidColorBrush x:Key="SpeechLoggingConsentStarOutlineBrush" Opacity="0"/>
 
-    <!--Color Palette--><!--
-    <Color x:Key="AltHigh">White</Color>
+    <!--Color Palette-->
+    <Color x:Key="AltHigh">Black</Color>
     <Color x:Key="AltLight">White</Color>
     <Color x:Key="AltAltHigh">#222222</Color>
-    <Color x:Key="AltHighTransparent">Transparent</Color>
-    <Color x:Key="AltMediumHigh">#F2F2F2</Color>
-    <Color x:Key="AltMedium">#737373</Color>
-    <Color x:Key="AltAltMedium">#D2D2D2</Color>
-    <Color x:Key="AltMediumDark">#E6E6E6</Color>
-    <Color x:Key="AltMediumLow">#E6E6E6</Color>
-    <Color x:Key="AltLow">Transparent</Color>
-    <Color x:Key="AltAltLow">White</Color>
+    <Color x:Key="AltHighTransparent">#00000000</Color>
+    <Color x:Key="AltMediumHigh">#222222</Color>
+    <Color x:Key="AltMedium">Black</Color>
+    <Color x:Key="AltAltMedium">#505050</Color>
+    <Color x:Key="AltMediumDark">#2F2F2F</Color>
+    <Color x:Key="AltMediumLow">#00000000</Color>
+    <Color x:Key="AltLow">#505050</Color>
+    <Color x:Key="AltAltLow">#737373</Color>
 
-    <Color x:Key="BaseHigh">Black</Color>
-    <Color x:Key="BaseAltHigh">#2F2F2F</Color>
-    <Color x:Key="BaseHighTransparent">#00000000</Color>
-    <Color x:Key="BaseMediumHigh">#252424</Color>
-    <Color x:Key="BaseMedium">#2F2F2F</Color>
-    <Color x:Key="BaseAltMedium">#737373</Color>
-    <Color x:Key="BaseMediumLow">#737373</Color>
-    <Color x:Key="BaseLow">#D2D2D2</Color>
+    <Color x:Key="BaseHigh">White</Color>
+    <Color x:Key="BaseAltHigh">#E6E6E6</Color>
+    <Color x:Key="BaseHighTransparent">Transparent</Color>
+    <Color x:Key="BaseMediumHigh">#FFFFFF</Color>
+    <Color x:Key="BaseMedium">#F2F2F2</Color>
+    <Color x:Key="BaseAltMedium">#D2D2D2</Color>
+    <Color x:Key="BaseMediumLow">#E6E6E6</Color>
+    <Color x:Key="BaseLow">#737373</Color>
     <Color x:Key="BaseAltLow">#D2D2D2</Color>
 
-    <Color x:Key="ChromeHigh">#FFFFFF</Color>
-    <Color x:Key="ChromeAltHigh">#949494</Color>
-    <Color x:Key="ChromeMediumHigh">#E6E6E6</Color>
-    <Color x:Key="ChromeMedium">#F2F2F2</Color>
-    <Color x:Key="ChromeMediumTransparent">#00F2F2F2</Color>
+    <Color x:Key="ChromeHigh">#252424</Color>
+    <Color x:Key="ChromeAltHigh">#737373</Color>
+    <Color x:Key="ChromeMediumHigh">#737373</Color>
+    <Color x:Key="ChromeMedium">#505050</Color>
+    <Color x:Key="ChromeMediumTransparent">#00505050</Color>
     <Color x:Key="ChromeAltMedium">#737373</Color>
-    <Color x:Key="ChromeMediumDark">White</Color>
-    <Color x:Key="ChromeMediumLow">#E6E6E6</Color>
-    <Color x:Key="ChromeLow">#F2F2F2</Color>
-    <Color x:Key="ChromeAltLow">#2F2F2F</Color>
+    <Color x:Key="ChromeMediumDark">#FF1F1F1F</Color>
+    <Color x:Key="ChromeMediumLow">#505050</Color>
+    <Color x:Key="ChromeLow">#2F2F2F</Color>
+    <Color x:Key="ChromeAltLow">#505050</Color>
 
     <Color x:Key="CortanaAccent">#00AEEF</Color>
     <Color x:Key="CortanaAccentLow">#0078D7</Color>
@@ -477,14 +477,14 @@
     <Color x:Key="ErrorMedium">#FFB900</Color>
     <Color x:Key="ErrorInformative">#0078D4</Color>
 
-    <Color x:Key="ErrorImageExclamationColor">#F7B647</Color>
-    <Color x:Key="ErrorImageExclamationGreyscaleColor">#FFFFFF</Color>
-    <Color x:Key="ErrorImageTriangleColor">#FFD590</Color>
-    <Color x:Key="ErrorImageTriangleGreyscaleColor">#C8C6C4</Color>
-    <Color x:Key="ErrorImageMotionLinesColor">#E1DFDD</Color>
+    <Color x:Key="ErrorImageExclamationColor">#FFE5B9</Color>
+    <Color x:Key="ErrorImageExclamationGreyscaleColor">#B3AFAB</Color>
+    <Color x:Key="ErrorImageTriangleColor">#F7B647</Color>
+    <Color x:Key="ErrorImageTriangleGreyscaleColor">#797673</Color>
+    <Color x:Key="ErrorImageMotionLinesColor">#33312D</Color>
 
-    --><!-- Colors for Speech logging consent image--><!--
-    <Color x:Key="SpeechLoggingConsentCircleFillColor">#FFCBEEFB</Color>
+    <!-- Colors for Speech logging consent image-->
+    <Color x:Key="SpeechLoggingConsentCircleFillColor">#FF00455F</Color>
     <Color x:Key="SpeechLoggingConsentHandFillColor">#FFBE8E67</Color>
     <Color x:Key="SpeechLoggingConsentClothFillShadowColor">#FFF6B446</Color>
     <Color x:Key="SpeechLoggingConsentClothFillLightShadowColor">#FFFAC46B</Color>
@@ -495,6 +495,5 @@
     <Color x:Key="SpeechLoggingConsentMouthFillColor">#FF9A623B</Color>
     <Color x:Key="SpeechLoggingConsentEyeFillColor">#FF39302D</Color>
     <Color x:Key="SpeechLoggingConsentBookAndEarringFillColor">#FFE0DEDC</Color>
-    <Color x:Key="SpeechLoggingConsentBookFrontFillColor">#FFC7C5C3</Color>-->
-
+    <Color x:Key="SpeechLoggingConsentBookFrontFillColor">#FFC7C5C3</Color>
 </ResourceDictionary>

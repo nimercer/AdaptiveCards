@@ -10,6 +10,8 @@ using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
 using AdaptiveCardVisualizer.Helpers;
+using System.Windows.Input;
+using Windows.UI.Xaml.Input;
 
 namespace AdaptiveCardVisualizer.ViewModel
 {
